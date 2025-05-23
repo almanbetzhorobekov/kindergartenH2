@@ -2,18 +2,31 @@ package api.kindergartensb.service.implement;
 
 import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.GroupDTO;
+import api.kindergartensb.entity.Group;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static api.kindergartensb.dto.GroupDTO.MAX_CHILD;
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
-    public GroupServiceImpl(GroupRepository groupRepository) {
+    private final GroupRepository repository;
+
+    public GroupServiceImpl(GroupRepository repository) {
+        this.repository = repository;
     }
 
+    public void saveGroupByGroupName(String groupName) {
+        Group group = new Group();
+        group.setGroupName(groupName);
+        repository.save(group);
+
+    }
 
     @Override
     public boolean addChildToGroup(GroupDTO groupDTO, ChildDTO childDTO) {

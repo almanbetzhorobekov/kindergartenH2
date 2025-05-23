@@ -13,17 +13,16 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Educator {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
 
     private UUID uuid;
-
     private String firstName;
-
     private String lastName;
-
     private LocalDate birthday;
+
     @ManyToOne
     private Kindergarten kindergarten;
     @OneToMany

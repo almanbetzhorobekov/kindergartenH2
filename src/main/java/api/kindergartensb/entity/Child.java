@@ -26,7 +26,6 @@ public class Child {
     private Group group;
 
     @ManyToMany
-
     private List<Parents> parents;
 //    @Column
 //    @ManyToOne

@@ -20,9 +20,11 @@ public class Kindergarten {
 
     @OneToMany
     private List<Group> group;
+
     @OneToMany
+
     private List<Educator> educator;
-    @OneToOne
+   @OneToOne
     private Address address;
 
 }
