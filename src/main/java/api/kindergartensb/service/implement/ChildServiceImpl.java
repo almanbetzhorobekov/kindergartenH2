@@ -29,11 +29,12 @@ public class ChildServiceImpl implements ChildService {
     }
 
     public ChildDTO createChild(ChildDTO childDTO) {
-        validateAge(childDTO.getAge()); // 🔍 Проверка возраста
+
+        validateAge(childDTO.getAge());
 
         Child child = childAssembler.toEntity(childDTO);
         childRepository.save(child);
-        return childAssembler.toDto(child);
+        return childAssembler.mapEntityToDto(child);
     }
 
     private void validateAge(int age) {

@@ -1,6 +1,8 @@
 package api.kindergartensb.dto;
 
 import lombok.*;
+
+import javax.swing.*;
 import java.util.List;
 /**
  * The Educator class represents an educator in the kindergarten.
@@ -13,8 +15,8 @@ import java.util.List;
 @Builder
 public class EducatorDTO extends Person {
 
-    private KindergartenDTO kindergartenDTO;
-    private List<GroupDTO> groupDTOList;
+    private Spring kindergartenName;
+    private List<Spring> groupDTOList;
 
     /**
      * Returns the role of the person, which is "Educator".
@@ -25,13 +27,5 @@ public class EducatorDTO extends Person {
     public String getRole() {
         return "Educator";
     }
-//
-//    @Override
-//    public String toString() {
-//        return "Educator:" + getFullName() +
-//                "\nBirthday: "+ birthday +
-//                "\nAdresse: " + addressDTO +
-//                "\nKindergarten: " + kindergartenDTO.getName();
-//    }
 
 }

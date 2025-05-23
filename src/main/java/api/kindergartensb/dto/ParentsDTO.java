@@ -21,40 +21,24 @@ import java.util.List;
 
 public class ParentsDTO extends Person{
 
-    private AddressDTO address;
-    private List<ChildDTO> childDTOList = new ArrayList<>();
-
-    /**
-     * Sets the child associated with this parent.
-     *
-     * @param childDTO The child to be associated with the parent.
-     */
-    public void addChild(ChildDTO childDTO) {
-        this.childDTOList.add(childDTO);
-    }
+    private String address;
+    private List<String> childDTOList = new ArrayList<>();
 
     @Override
     public String getFullName() {
         return super.getFullName();
     }
 //
-//    public AddressDTO getAddress() {
-//        return getAddressDTO();
+//
+//    public void childName() {
+//        System.out.println("Parents has " + childDTOList.size() + " children.");
+//        for (int i = 0; i < childDTOList.size(); i++) {
+//            ChildDTO childDTO = childDTOList.get(i);
+//            System.out.println("Kind " + (i + 1) + ":");
+//            System.out.println(childDTO.getFullName());
+//        }
 //    }
 
-    public void childName() {
-        System.out.println("Parents has " + childDTOList.size() + " children.");
-        for (int i = 0; i < childDTOList.size(); i++) {
-            ChildDTO childDTO = childDTOList.get(i);
-            System.out.println("Kind " + (i + 1) + ":");
-            System.out.println(childDTO.getFullName());
-        }
-    }
-
-    /**
-     * Returns the role of the person as "Parent"
-     * @return The role of the person, which is "Parent".
-     */
 
     @Override
     public String getRole() {

@@ -9,4 +9,5 @@ import java.util.UUID;
 @Repository
 public interface ChildRepository extends JpaRepository<Child, UUID> {
     List<Child> findByLastName(String lastName);
+
 }

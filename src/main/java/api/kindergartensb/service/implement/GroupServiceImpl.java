@@ -1,14 +1,11 @@
 package api.kindergartensb.service.implement;
 
-import api.kindergartensb.dto.ChildDTO;
-import api.kindergartensb.dto.GroupDTO;
+import api.kindergartensb.entity.Child;
 import api.kindergartensb.entity.Group;
+import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static api.kindergartensb.dto.GroupDTO.MAX_CHILD;
 
@@ -16,9 +13,13 @@ import static api.kindergartensb.dto.GroupDTO.MAX_CHILD;
 public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository repository;
+    private final ChildRepository childRepository;
+    private final GroupRepository groupRepository;
 
-    public GroupServiceImpl(GroupRepository repository) {
+    public GroupServiceImpl(GroupRepository repository, ChildRepository childRepository, GroupRepository groupRepository) {
         this.repository = repository;
+        this.childRepository = childRepository;
+        this.groupRepository = groupRepository;
     }
 
     public void saveGroupByGroupName(String groupName) {
@@ -29,10 +30,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean addChildToGroup(GroupDTO groupDTO, ChildDTO childDTO) {
-        if (groupDTO.getKinderList().size() < MAX_CHILD) {
-            childDTO.setGroupDTO(groupDTO);
-            groupDTO.getKinderList().add(childDTO);
+    public boolean addChildToGroup(Group group, Child child) {
+        if (group.getKinderList().size() < MAX_CHILD) {
+            child.setGroup(group);
+            group.getKinderList().add(child);
+            childRepository.save(child);
+            groupRepository.save(group);
             return true;
         } else {
             throw new IllegalStateException("Group is already full");
@@ -40,18 +43,18 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean removeChildFromGroup(GroupDTO groupDTO, ChildDTO childDTO) {
-        boolean isRemoved = groupDTO.getKinderList().remove(childDTO);
+    public boolean removeChildFromGroup(Group group, Child child) {
+        boolean isRemoved = group.getKinderList().remove(child);
         if(isRemoved) {
-            childDTO.setGroupDTO(null);
+            child.setGroup(null);
         }
         return isRemoved;
     }
 
     @Override
-    public void displayChildNames(GroupDTO groupDTO) {
-        for (ChildDTO childDTO : groupDTO.getKinderList()) {
-            System.out.println(childDTO.getFullName());
+    public void displayChildNames(Group group) {
+        for (Child child : group.getKinderList()) {
+            System.out.println(child.getFullName());
         }
     }
 }

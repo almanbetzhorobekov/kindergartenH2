@@ -19,9 +19,9 @@ import java.util.List;
 public class GroupDTO {
 
     private String groupName;
-    private KindergartenDTO kindergartenDTO;
-    private List<ChildDTO> kinderList;
-    private EducatorDTO educatorDTO;
+    private String kindergartenDTO;
+    private List<String> kinderList;
+    private String educatorDTO;
     public static final int MAX_CHILD = 20;
 
 
