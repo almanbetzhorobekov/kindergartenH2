@@ -7,9 +7,16 @@ import api.kindergartensb.entity.Educator;
 import api.kindergartensb.entity.Group;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 
 public interface EducatorService {
-    public void assignGroupToEducator(Educator educator, Group group);
-    public void assignKindergartenToEducator(EducatorDTO educatorDTO, KindergartenDTO kindergartenDTO);
+
+    void assignGroupToEducator(UUID educatorId, UUID groupId);
+    void assignKindergartenToEducator(UUID educatorId, UUID kindergartenId);
+    EducatorDTO getEducatorById(UUID educatorId);
+    void saveEducator(EducatorDTO educatorDTO);
+
 }
+

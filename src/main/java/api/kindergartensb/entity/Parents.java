@@ -1,6 +1,7 @@
 package api.kindergartensb.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,4 +24,7 @@ public class Parents extends Person {
     private List<Child> child;
 
 
+    public @NotNull(message = "Firstname cannot be null") String getFirstName() {
+        return super.getFirstName();
+    }
 }

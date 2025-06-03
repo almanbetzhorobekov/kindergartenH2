@@ -26,4 +26,7 @@ public class Child extends Person {
     @ManyToMany
     private List<Parents> parents;
 
+    public Object getId() {
+        return uuid;
+    }
 }

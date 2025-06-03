@@ -1,6 +1,7 @@
 package api.kindergartensb.dto;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.swing.*;
 import java.util.List;
@@ -10,13 +11,15 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class EducatorDTO extends Person {
 
-    private Spring kindergartenName;
-    private List<Spring> groupDTOList;
+    private String kindergarten;
+    private List<String> groupDTOList;
 
     /**
      * Returns the role of the person, which is "Educator".

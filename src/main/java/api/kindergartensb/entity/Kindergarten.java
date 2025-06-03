@@ -27,4 +27,7 @@ public class Kindergarten {
    @OneToOne
     private Address address;
 
+    public String getName() {
+        return kindergartenName;
+    }
 }

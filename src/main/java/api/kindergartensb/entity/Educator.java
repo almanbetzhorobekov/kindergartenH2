@@ -20,7 +20,9 @@ public class Educator extends Person {
 
     private UUID uuid;
     @ManyToOne
+
     private Kindergarten kindergarten;
+
     @OneToMany
     private List<Group> groupDTOList;
 

@@ -2,7 +2,7 @@ package api.kindergartensb.dto;
 
 import java.util.List;
 
-import api.kindergartensb.entity.Parents;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

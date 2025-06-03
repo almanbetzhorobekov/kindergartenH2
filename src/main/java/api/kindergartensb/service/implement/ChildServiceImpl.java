@@ -11,30 +11,32 @@ import java.util.List;
 
 @Service
 public class ChildServiceImpl implements ChildService {
-    private final ChildRepository childRepository;
-    private final ChildAssembler childAssembler;
 
-    public ChildServiceImpl(ChildRepository childRepository, ChildAssembler childAssembler) {
+    private final ChildRepository childRepository;
+
+    public ChildServiceImpl(ChildRepository childRepository) {
         this.childRepository = childRepository;
-        this.childAssembler = childAssembler;
     }
 
+    @Override
     public ChildDTO save(ChildDTO childDTO) {
-        return null;
+        return createChild(childDTO);
     }
 
     @Override
     public List<ChildDTO> getAllChild() {
-        return List.of();
+        return childRepository.findAll()
+                .stream()
+                .map(ChildAssembler::toDto)
+                .toList();
     }
 
     public ChildDTO createChild(ChildDTO childDTO) {
-
         validateAge(childDTO.getAge());
 
-        Child child = childAssembler.toEntity(childDTO);
+        Child child = ChildAssembler.toEntity(childDTO, null, null);
         childRepository.save(child);
-        return childAssembler.mapEntityToDto(child);
+        return ChildAssembler.toDto(child);
     }
 
     private void validateAge(int age) {
@@ -42,5 +44,5 @@ public class ChildServiceImpl implements ChildService {
             throw new IllegalArgumentException("Age must be between 1 and 6.");
         }
     }
-
 }
+

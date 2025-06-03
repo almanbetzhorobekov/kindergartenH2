@@ -1,6 +1,4 @@
 package api.kindergartensb.assembler;
 
-public class GroupAssembler {
-
-
+public class ParentAssembler {
 }
