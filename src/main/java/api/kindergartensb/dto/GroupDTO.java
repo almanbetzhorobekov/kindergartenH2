@@ -20,9 +20,8 @@ public class GroupDTO {
 
     private String groupName;
     private String kindergartenDTO;
-    private List<String> kinderList;
+    private List<ChildDTO> kinderList;
     private String educatorDTO;
     public static final int MAX_CHILD = 20;
-
 
 }
