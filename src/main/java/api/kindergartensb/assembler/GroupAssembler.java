@@ -3,7 +3,9 @@ package api.kindergartensb.assembler;
 import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.entity.Child;
+import api.kindergartensb.entity.Educator;
 import api.kindergartensb.entity.Group;
+import api.kindergartensb.entity.Kindergarten;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,20 @@ public class GroupAssembler {
             dto.setKinderList(childDTOList);
         }
         return dto;
+    }
+
+    public static Group toEntity(GroupDTO dto, Educator educator, Kindergarten kindergarten,  List<Child> child) {
+        if (dto == null) {
+            return null;
+        }
+
+        Group groupEntity = new Group();
+        groupEntity.setGroupName(dto.getGroupName());
+        groupEntity.setEducator(educator);
+        groupEntity.setKindergarten(kindergarten);
+        groupEntity.setChild(child);
+        return groupEntity;
+
     }
 
 

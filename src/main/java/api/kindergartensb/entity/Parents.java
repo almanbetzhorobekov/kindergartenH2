@@ -1,30 +1,33 @@
 package api.kindergartensb.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Parents extends Person {
+@AllArgsConstructor
+@Builder
+public class Parents {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String address;
 
     @ManyToMany
     private List<Child> child;
 
-
-    public @NotNull(message = "Firstname cannot be null") String getFirstName() {
-        return super.getFirstName();
-    }
 }
+
