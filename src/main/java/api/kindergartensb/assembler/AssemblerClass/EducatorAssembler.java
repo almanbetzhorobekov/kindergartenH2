@@ -1,4 +1,4 @@
-package api.kindergartensb.assembler;
+package api.kindergartensb.assembler.AssemblerClass;
 
 import api.kindergartensb.dto.EducatorDTO;
 import api.kindergartensb.entity.Educator;
@@ -6,6 +6,7 @@ import api.kindergartensb.entity.Group;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class EducatorAssembler {
 
     public static EducatorDTO toDto(Educator educator) {
@@ -14,15 +15,11 @@ public class EducatorAssembler {
             return null;
         }
 
-        EducatorDTO dto = new EducatorDTO();
+        EducatorDTO.EducatorDTOBuilder builder = EducatorDTO.builder();
 
-        dto.setFirstName(educator.getFirstName());
-        dto.setLastName(educator.getLastName());
-        dto.setBirthday(educator.getBirthday());
-
-        if (educator.getKindergarten() != null) {
-            dto.setKindergarten(educator.getKindergarten().getName());
-        }
+        builder.firstName(educator.getFirstName());
+        builder.lastName(educator.getLastName());
+        builder.birthday(educator.getBirthday());
 
         if (educator.getGroupDTOList() != null) {
             List<String> groupDTOList = new ArrayList<>();
@@ -31,9 +28,9 @@ public class EducatorAssembler {
                     groupDTOList.add(group.getGroupName());
                 }
             }
-            dto.setGroupDTOList(groupDTOList);
+            builder.groupDTOList(groupDTOList);
         }
-        return dto;
+        return builder.build();
 
     }
 
@@ -41,14 +38,11 @@ public class EducatorAssembler {
         if (educatorDTO == null) {
             return null;
         }
-        Educator educator = new Educator();
-
-        educator.setFirstName(educatorDTO.getFirstName());
-        educator.setLastName(educatorDTO.getLastName());
-        educator.setBirthday(educatorDTO.getBirthday());
-
-        return educator;
+        return Educator.builder()
+                .firstName(educatorDTO.getFirstName())
+                .lastName(educatorDTO.getLastName())
+                .birthday(educatorDTO.getBirthday())
+                .build();
     }
-
 
 }

@@ -1,6 +1,7 @@
 package api.kindergartensb.dto;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,8 @@ import java.util.List;
  * specific to parents, such as the associated child. The {@link Builder} pattern
  * is used to create instances of this class.</p>
  */
-
-@Builder
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class ParentsDTO extends Person {
 

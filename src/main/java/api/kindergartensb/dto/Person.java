@@ -1,14 +1,13 @@
 package api.kindergartensb.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @SuperBuilder
 public abstract class Person {
     @NotNull(message = "Firstname cannot be null")
@@ -19,10 +18,11 @@ public abstract class Person {
     protected LocalDate birthday;
     protected String addressDTO;
 
-
     public abstract String getRole();
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
 
 }

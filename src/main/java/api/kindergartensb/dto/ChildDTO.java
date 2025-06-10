@@ -1,25 +1,22 @@
 package api.kindergartensb.dto;
 
-import java.util.List;
-
-
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@SuperBuilder
-@ToString(callSuper = true)
+import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@Data
 public class ChildDTO extends Person {
 
+//    private final String example;
     private String kindergarten;
-    @NotNull (message = "Age cannot be null")
+    @NotNull(message = "Age cannot be null")
     @Min(value = 1, message = "Age cannot be less than 1 year.")
     @Max(value = 6, message = "Age must not exceed 6 years.")
     private int age;

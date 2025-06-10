@@ -5,13 +5,14 @@ import api.kindergartensb.entity.Group;
 import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import static api.kindergartensb.dto.GroupDTO.MAX_CHILD;
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
+    @Autowired
     private final GroupRepository repository;
     private final ChildRepository childRepository;
     private final GroupRepository groupRepository;

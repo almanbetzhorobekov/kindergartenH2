@@ -1,4 +1,4 @@
-package api.kindergartensb.assembler;
+package api.kindergartensb.assembler.AssemblerClass;
 
 import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;

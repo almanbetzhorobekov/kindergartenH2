@@ -3,11 +3,12 @@ package api.kindergartensb.service.implement;
 import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.entity.Child;
 import api.kindergartensb.repository.ChildRepository;
-import api.kindergartensb.assembler.ChildAssembler;
+import api.kindergartensb.assembler.AssemblerClass.ChildAssembler;
 import api.kindergartensb.service.ChildService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ChildServiceImpl implements ChildService {
@@ -37,6 +38,11 @@ public class ChildServiceImpl implements ChildService {
         Child child = ChildAssembler.toEntity(childDTO, null, null);
         childRepository.save(child);
         return ChildAssembler.toDto(child);
+    }
+
+    @Override
+    public Child getChild(UUID id) {
+        return null;
     }
 
     private void validateAge(int age) {
