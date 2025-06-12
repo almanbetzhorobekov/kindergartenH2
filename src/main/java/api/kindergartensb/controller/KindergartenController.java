@@ -14,9 +14,9 @@ public class KindergartenController {
 
     private final KindergartenService kindergartenService;
 
-    @DeleteMapping("/kindergarten/{delete}")
-    public KindergartenDTO removeKindergarten(@PathVariable String name) {
-        Kindergarten kindergarten = kindergartenService.;
-    }
+//    @DeleteMapping("/kindergarten/{delete}")
+//    public KindergartenDTO removeKindergarten(@PathVariable String name) {
+////        Kindergarten kindergarten = kindergartenService.;
+//    }
 
 }

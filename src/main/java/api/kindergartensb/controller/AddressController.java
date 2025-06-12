@@ -2,6 +2,7 @@ package api.kindergartensb.controller;
 
 import api.kindergartensb.dto.AddressDTO;
 import api.kindergartensb.service.AddressService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ public class AddressController {
 
     private final AddressService addressService;
 
+    @PostMapping
+    public ResponseEntity<AddressDTO> create(@RequestBody AddressDTO dto) {
+        return ResponseEntity.ok(addressService.create(dto));
+    }
+
     @GetMapping()
     public ResponseEntity<List<AddressDTO>> getAllAddresses() {
         return ResponseEntity.ok(addressService.getAll());
@@ -28,7 +34,14 @@ public class AddressController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AddressDTO> updateAddress(@PathVariable UUID id,
-                                                    @RequestBody AddressDTO dto) {
+                                                    @RequestBody @Valid AddressDTO dto) {
+
+        // 1. Schritt
+        System.out.println("updateAddress");
+
+        // 2. Schritt: Validierung AddressDTO (@Valid)
+
+        // 3. Schritt: Service aufrufen
         return ResponseEntity.ok(addressService.update(id, dto));
     }
 

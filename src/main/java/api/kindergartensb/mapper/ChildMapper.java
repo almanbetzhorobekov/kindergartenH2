@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {ParentsMapper.class})
 public interface ChildMapper {
 
-    @Mapping(source = "uuid", target = "id")
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "group.name", target = "groupName")
     @Mapping(source = "group.kindergarten.name", target = "kindergarten")
     @Mapping(source = "parents", target = "parents")
@@ -18,7 +18,7 @@ public interface ChildMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "group", source = "GroupMapper")
-    @Mapping(target = "id", source = "uuid")
+    @Mapping(target = "id", source = "id")
     Child toEntity(ChildDTO childDTO);
 
 }
