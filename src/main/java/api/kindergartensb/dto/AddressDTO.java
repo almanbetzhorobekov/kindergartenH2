@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class AddressDTO {
 
-    private int plz;
+    private String plz;
     private String street;
-    private int houseNumber;
+    private String houseNumber;
 
 }

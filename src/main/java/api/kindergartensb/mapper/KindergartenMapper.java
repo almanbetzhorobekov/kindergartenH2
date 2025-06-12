@@ -1,4 +1,4 @@
-package api.kindergartensb.assembler;
+package api.kindergartensb.mapper;
 
 public interface KindergartenMapper {
 }

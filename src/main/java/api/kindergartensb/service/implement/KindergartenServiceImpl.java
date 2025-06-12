@@ -1,6 +1,6 @@
 package api.kindergartensb.service.implement;
 
-import api.kindergartensb.dto.ChildDTO;
+
 import api.kindergartensb.dto.EducatorDTO;
 import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.dto.KindergartenDTO;

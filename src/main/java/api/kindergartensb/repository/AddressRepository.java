@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface AddressRepository extends JpaRepository<Address, UUID> {
 
     List<Address> findByStreet(String street);
-    List<Address> findByPlz(int plz);
-    List<Address> findByHouseNumber(int houseNumber);
+    List<Address> findByPlz(String plz);
+    List<Address> findByHouseNumber(String houseNumber);
 
 }
