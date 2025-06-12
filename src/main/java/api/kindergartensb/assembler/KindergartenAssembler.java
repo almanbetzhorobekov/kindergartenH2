@@ -40,7 +40,7 @@ public class KindergartenAssembler {
         return KindergartenDTO.builder()
                 .name(kindergarten.getName())
                 .addressDTO(addressStr)
-                .groupDTOS(groupNames)
+//                .groupDTOS(groupNames)
                 .educatorDTOList(educatorNames)
                 .build();
 
@@ -55,12 +55,10 @@ public class KindergartenAssembler {
             return null;
         }
 
-        Kindergarten kindergarten = new Kindergarten();
-        kindergarten.setKindergartenName(dto.getName());
-        kindergarten.setAddress(address);
-        kindergarten.setGroup(groups);
-        kindergarten.setEducator(educators);
-        return kindergarten;
+        return Kindergarten.builder()
+                .kindergartenName(dto.getName())
+                .build();
+
 
     }
 }

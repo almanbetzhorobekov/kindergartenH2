@@ -23,11 +23,11 @@ public class AddressAssembler {
             return null;
         }
 
-        Address address = new Address();
-        address.setPlz(dto.getPlz());
-        address.setStreet(dto.getStreet());
-        address.setHouseNumber(dto.getHouseNumber());
+        return Address.builder()
+                .plz(dto.getPlz())
+                .houseNumber(dto.getHouseNumber())
+                .street(dto.getStreet())
+                .build();
 
-        return address;
     }
 }

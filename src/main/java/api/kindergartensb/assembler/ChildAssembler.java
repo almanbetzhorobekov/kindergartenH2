@@ -45,15 +45,16 @@ public class ChildAssembler {
         if (dto == null) {
             return null;
         }
+//
+//        Child child = new Child();
+//
+//        child.setFirstName(dto.getFirstName());
+//        child.setLastName(dto.getLastName());
+//        child.setGroup(group);
+//        child.setParents(parentEntities);
 
-        Child child = new Child();
-
-        child.setFirstName(dto.getFirstName());
-        child.setLastName(dto.getLastName());
-        child.setGroup(group);
-        child.setParents(parentEntities);
-
-        return child;
+        return Child.builder()
+                .parents(dto.getParents())
     }
 
     private static List<ParentsDTO> toParentsDtoList(List<Parents> parents) {

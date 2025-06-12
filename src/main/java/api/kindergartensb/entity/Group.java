@@ -2,17 +2,17 @@ package api.kindergartensb.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.net.ssl.SSLSession;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Group {
 
     @Id
