@@ -10,4 +10,11 @@ public class KindergartenSbApplication {
         SpringApplication.run(KindergartenSbApplication.class, args);
     }
 
+
+
+//    @Bean
+//    public RestTemplate restTemplate() {
+//        return new RestTemplateBuilder().build();
+//    }
+
 }

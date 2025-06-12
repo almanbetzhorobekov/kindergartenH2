@@ -1,9 +1,10 @@
 package api.kindergartensb.service.implement;
 
+import api.kindergartensb.assembler.ChildAssembler;
+import api.kindergartensb.assembler.ChildMapper;
 import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.entity.Child;
 import api.kindergartensb.repository.ChildRepository;
-import api.kindergartensb.assembler.ChildAssembler;
 import api.kindergartensb.service.ChildService;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.List;
 public class ChildServiceImpl implements ChildService {
 
     private final ChildRepository childRepository;
+    private final ChildMapper childMapper;
 
-    public ChildServiceImpl(ChildRepository childRepository) {
+    public ChildServiceImpl(ChildRepository childRepository, ChildMapper childMapper) {
         this.childRepository = childRepository;
+        this.childMapper = childMapper;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class ChildServiceImpl implements ChildService {
     public List<ChildDTO> getAllChild() {
         return childRepository.findAll()
                 .stream()
-                .map(ChildAssembler::toDto)
+                .map(childMapper::toDTO)
                 .toList();
     }
 

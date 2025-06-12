@@ -1,6 +1,5 @@
 package api.kindergartensb.service.implement;
 
-import api.kindergartensb.assembler.EducatorAssembler;
 import api.kindergartensb.dto.EducatorDTO;
 import api.kindergartensb.entity.Educator;
 import api.kindergartensb.entity.Group;
