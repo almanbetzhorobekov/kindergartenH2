@@ -16,55 +16,24 @@ import java.util.UUID;
 @Service
 public class EducatorServiceImpl implements EducatorService {
 
-    private final EducatorAssembler educatorAssembler;
-
-    private final EducatorRepository educatorRepository;
-    private final GroupRepository groupRepository;
-    private final KindergartenRepository kindergartenRepository;
-
-    public EducatorServiceImpl(EducatorAssembler educatorAssembler, EducatorRepository educatorRepository,
-                               GroupRepository groupRepository,
-                               KindergartenRepository kindergartenRepository) {
-        this.educatorAssembler = educatorAssembler;
-        this.educatorRepository = educatorRepository;
-        this.groupRepository = groupRepository;
-        this.kindergartenRepository = kindergartenRepository;
-    }
-
+//todo
     @Override
     public void assignGroupToEducator(UUID educatorId, UUID groupId) {
-        Educator educator = educatorRepository.findById(educatorId).orElseThrow();
-        Group group = groupRepository.findById(groupId).orElseThrow();
 
-        if (educator.getGroupDTOList() == null) {
-            educator.setGroupDTOList(new ArrayList<>());
-        }
-
-        educator.getGroupDTOList().add(group);
-        educatorRepository.save(educator);
     }
-
+//todo
     @Override
     public void assignKindergartenToEducator(UUID educatorId, UUID kindergartenId) {
-        Educator educator = educatorRepository.findById(educatorId).orElseThrow();
-        Kindergarten kindergarten = kindergartenRepository.findById(kindergartenId).orElseThrow();
 
-        educator.setKindergarten(kindergarten);
-        educatorRepository.save(educator);
     }
-
+//todo
     @Override
     public EducatorDTO getEducatorById(UUID educatorId) {
-        Educator educator = educatorRepository.findById(educatorId).
-                orElseThrow(() -> new RuntimeException("Educator not found"));
-        return educatorAssembler.toDto(educator);
+        return null;
     }
-
+//todo
     @Override
     public void saveEducator(EducatorDTO educatorDTO) {
-        Educator educator = educatorAssembler.toEntity(educatorDTO);
-        educatorRepository.save(educator);
+
     }
-
-
 }

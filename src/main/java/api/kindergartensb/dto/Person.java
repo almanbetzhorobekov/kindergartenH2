@@ -1,12 +1,11 @@
 package api.kindergartensb.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
 import java.time.LocalDate;
-
+@RequiredArgsConstructor
 @Data
 @SuperBuilder
 public abstract class Person {

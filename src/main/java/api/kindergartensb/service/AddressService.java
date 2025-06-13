@@ -14,5 +14,7 @@ public interface AddressService {
     AddressDTO getById(UUID id);
     AddressDTO update(UUID id, AddressDTO dto);
     void delete(UUID id);
+    AddressDTO getByPlz(String plz);
+    AddressDTO getByStreet(String street);
 
 }

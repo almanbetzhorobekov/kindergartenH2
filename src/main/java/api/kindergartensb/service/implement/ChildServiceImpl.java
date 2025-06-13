@@ -6,43 +6,9 @@ import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.service.ChildService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
-
 @Service
 public class ChildServiceImpl implements ChildService {
 
-    private final ChildRepository childRepository;
-
-    public ChildServiceImpl(ChildRepository childRepository) {
-        this.childRepository = childRepository;
-    }
-
-    @Override
-    public ChildDTO save(ChildDTO childDTO) {
-        return createChild(childDTO);
-    }
-
-    @Override
-    public List<ChildDTO> getAllChild() {
-        return childRepository.findAll()
-                .stream()
-                .map(ChildAssembler::toDto)
-                .toList();
-    }
-
-    public ChildDTO createChild(ChildDTO childDTO) {
-        validateAge(childDTO.getAge());
-
-        Child child = ChildAssembler.toEntity(childDTO, null, null);
-        childRepository.save(child);
-        return ChildAssembler.toDto(child);
-    }
-
-    @Override
-    public Child getChild(UUID id) {
-        return null;
-    }
 
     private void validateAge(int age) {
         if (age < 1 || age > 6) {

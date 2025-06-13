@@ -63,5 +63,23 @@ public class AddressServiceImpl implements AddressService {
         repository.deleteById(id);
 
     }
+
+    @Override
+    public AddressDTO getByPlz(String plz) {
+        return null;
+    }
+
+    //todo
+//    @Override
+//    public AddressDTO getByPlz(String plz) {
+//        Address address = repository.findByPlz(plz)
+//                .orElseThrow(() -> new RuntimeException("Address not found with plz " + plz));
+//    return addressMapper.toDto(address);
+//    }
+//todo
+    @Override
+    public AddressDTO getByStreet(String street) {
+        return null;
+    }
 }
 

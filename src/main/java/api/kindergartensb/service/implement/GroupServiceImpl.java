@@ -1,61 +1,71 @@
 package api.kindergartensb.service.implement;
 
-import api.kindergartensb.entity.Child;
-import api.kindergartensb.entity.Group;
-import api.kindergartensb.repository.ChildRepository;
+import api.kindergartensb.dto.ChildDTO;
+import api.kindergartensb.dto.EducatorDTO;
+import api.kindergartensb.dto.GroupDTO;
+import api.kindergartensb.mapper.GroupMapper;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static api.kindergartensb.dto.GroupDTO.MAX_CHILD;
+
+import java.util.List;
+import java.util.UUID;
+
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
-    @Autowired
-    private final GroupRepository repository;
-    private final ChildRepository childRepository;
     private final GroupRepository groupRepository;
+    private final GroupMapper groupMapper;
 
-    public GroupServiceImpl(GroupRepository repository, ChildRepository childRepository, GroupRepository groupRepository) {
-        this.repository = repository;
-        this.childRepository = childRepository;
+    public GroupServiceImpl(GroupRepository groupRepository, GroupMapper groupMapper) {
         this.groupRepository = groupRepository;
+        this.groupMapper = groupMapper;
     }
 
-    public void saveGroupByGroupName(String groupName) {
-        Group group = new Group();
-        group.setGroupName(groupName);
-        repository.save(group);
-
-    }
-
+//todo
     @Override
-    public boolean addChildToGroup(Group group, Child child) {
-        if (group.getKinderList().size() < MAX_CHILD) {
-            child.setGroup(group);
-            group.getKinderList().add(child);
-            childRepository.save(child);
-            groupRepository.save(group);
-            return true;
-        } else {
-            throw new IllegalStateException("Group is already full");
-        }
+    public GroupDTO createGroup(GroupDTO dto) {
+        return null;
     }
-
+//todo
     @Override
-    public boolean removeChildFromGroup(Group group, Child child) {
-        boolean isRemoved = group.getKinderList().remove(child);
-        if(isRemoved) {
-            child.setGroup(null);
-        }
-        return isRemoved;
+    public GroupDTO getAllGroups() {
+        return null;
     }
-
+//todo
     @Override
-    public void displayChildNames(Group group) {
-        for (Child child : group.getKinderList()) {
-            System.out.println(child.getFullName());
-        }
+    public GroupDTO getGroupById(UUID id) {
+        return null;
+    }
+//todo
+    @Override
+    public GroupDTO updateGroup(UUID id, GroupDTO dto) {
+        return null;
+    }
+//todo
+    @Override
+    public GroupDTO delete(UUID id) {
+        return null;
+    }
+//todo
+    @Override
+    public List<GroupDTO> getGroupsByKindergarten(String kindergartenName) {
+        return List.of();
+    }
+//todo
+    @Override
+    public GroupDTO getGroupByName(String groupName) {
+        return null;
+    }
+//todo
+    @Override
+    public List<ChildDTO> getChildrenInGroup(UUID groupId) {
+        return List.of();
+    }
+//todo
+    @Override
+    public EducatorDTO getEducatorOfGroup(UUID groupId) {
+        return null;
     }
 }

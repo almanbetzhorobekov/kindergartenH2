@@ -1,14 +1,19 @@
 package api.kindergartensb.repository;
 
 import api.kindergartensb.entity.Group;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public interface GroupRepository extends JpaRepository<Group, UUID> {
 
-    Group findByGroupName(String groupName);
-    List<Group> findByKindergarten_KindergartenName(String kindergartenName);
+    Optional<Group> findGroupByGroupName(String groupName);
+    List<Group> getAllBy(UUID id);
+    Optional<Group> findBy(String groupName);
+    Optional<Group> findByKindergarten_KindergartenName(String kindergartenName);
 }

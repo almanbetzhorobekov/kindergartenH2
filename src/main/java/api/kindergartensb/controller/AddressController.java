@@ -48,6 +48,7 @@ public class AddressController {
     @DeleteMapping("/{id}")
     public ResponseEntity<AddressDTO> deleteAddress(@PathVariable UUID id) {
         addressService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();//200 status code
+        //400 not found
     }
 }
