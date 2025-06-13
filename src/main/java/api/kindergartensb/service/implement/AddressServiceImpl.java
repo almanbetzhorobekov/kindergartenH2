@@ -13,30 +13,29 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository repository;
-    private final AddressMapper mapper;
+    private final AddressMapper addressMapper;
 
     @Autowired
-    public AddressServiceImpl(AddressRepository repository, AddressMapper mapper, AddressMapper addressMapper, AddressRepository addressRepository) {
+    public AddressServiceImpl(AddressRepository repository, AddressMapper addressMapper) {
         this.repository = repository;
-        this.mapper = mapper;
+        this.addressMapper = addressMapper;
 
     }
 
     @Override
     public AddressDTO create(AddressDTO dto) {
-        Address address = mapper.toEntity(dto);
-        return mapper.toDto(repository.save(address));
+        Address address = addressMapper.toEntity(dto);
+        return addressMapper.toDto(repository.save(address));
     }
 
     @Override
     public List<AddressDTO> getAll() {
         return repository.findAll()
                 .stream()
-                .map(mapper::toDto)
+                .map(addressMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -44,16 +43,16 @@ public class AddressServiceImpl implements AddressService {
     public AddressDTO getById(UUID id) {
         Address address = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Address not found with id " + id));
-        return mapper.toDto(address);
+        return addressMapper.toDto(address);
     }
 
     @Override
     public AddressDTO update(UUID id, AddressDTO dto) {
         Address existingAddress = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Address not found with id " + id));
-        Address updated = mapper.toEntity(dto);
+        Address updated = addressMapper.toEntity(dto);
         updated.setUuid(existingAddress.getUuid());
-        return mapper.toDto(repository.save(updated));
+        return addressMapper.toDto(repository.save(updated));
     }
 
     @Override
