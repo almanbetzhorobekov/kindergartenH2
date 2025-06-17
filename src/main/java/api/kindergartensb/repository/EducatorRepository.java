@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface EducatorRepository extends JpaRepository<Educator, UUID> {
-    List<Educator> findByFirstName(String firstName);
+    List<Educator> findByLastName(String LastName);
     List<Educator> findByKindergarten_KindergartenName(String kindergartenName);
 
 }

@@ -26,4 +26,7 @@ public class EducatorDTO extends Person {
         return "Educator";
     }
 
+    public String getLastName() {
+        return lastName;
+    }
 }

@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface KindergartenRepository extends JpaRepository<Kindergarten, UUID> {
     Optional<Kindergarten> findByKindergartenName(String kindergartenName);
 
+    @Override
+    Optional<Kindergarten> findById(UUID uuid);
 }
