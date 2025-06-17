@@ -10,6 +10,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@RequiredArgsConstructor
 @Data
 public class EducatorDTO extends Person {
 
