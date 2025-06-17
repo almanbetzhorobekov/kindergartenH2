@@ -17,20 +17,17 @@ public class KindergartenServiceImpl implements KindergartenService {
         educatorDTO.clear();
     }
 
+
+
     @Override
     public int totalCountChild(List<GroupDTO> groupDTOList) {
-        return 0;
-    }
+        int totalChild = 0;
+        for (GroupDTO groupDTO : groupDTOList) {
+            totalChild += groupDTO.counterChild();
+        }
+        return totalChild;
 
-//    @Override
-//    public int totalCountChild(List<GroupDTO> groupDTOList) {
-//        int totalChild = 0;
-//        for (GroupDTO groupDTO : groupDTOList) {
-//            totalChild += groupDTO.counterChild();
-//        }
-//        return totalChild;
-//
-//    }
+    }
 
     @Override
     public void addGroupToKindergarten(KindergartenDTO kindergartenDTO, GroupDTO groupDTO) {

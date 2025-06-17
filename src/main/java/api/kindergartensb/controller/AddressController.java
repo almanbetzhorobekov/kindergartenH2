@@ -38,9 +38,7 @@ public class AddressController {
 
         // 1. Schritt
         System.out.println("updateAddress");
-
         // 2. Schritt: Validierung AddressDTO (@Valid)
-
         // 3. Schritt: Service aufrufen
         return ResponseEntity.ok(addressService.update(id, dto));
     }

@@ -11,21 +11,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Kindergarten {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private UUID uuid;
     private String kindergartenName;
-
     @OneToMany
     private List<Group> group;
-
     @OneToMany
-
     private List<Educator> educator;
-   @OneToOne
+    @OneToOne
     private Address address;
-
     public String getName() {
         return kindergartenName;
     }

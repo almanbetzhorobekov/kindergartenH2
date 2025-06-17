@@ -15,7 +15,6 @@ import java.util.UUID;
 public class Educator extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-
     private UUID uuid;
     @ManyToOne
     private Kindergarten kindergarten;
