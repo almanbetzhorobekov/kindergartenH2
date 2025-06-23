@@ -23,5 +23,4 @@ public abstract class Person {
         return firstName + " " + lastName;
     }
 
-
 }

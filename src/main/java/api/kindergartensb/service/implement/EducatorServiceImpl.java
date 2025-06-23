@@ -8,11 +8,13 @@ import api.kindergartensb.repository.EducatorRepository;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.repository.KindergartenRepository;
 import api.kindergartensb.service.EducatorService;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Data
 @Service
 public class EducatorServiceImpl implements EducatorService {
 
@@ -46,7 +48,7 @@ public class EducatorServiceImpl implements EducatorService {
         Educator educator = educatorRepository.findById(educatorId)
                 .orElseThrow(() -> new RuntimeException("Educator not found"));
 
-        Kindergarten kindergarten = kindergartenRepository.findById(kindergartenId)
+        Kindergarten kindergarten = kindergartenRepository.findById()
                 .orElseThrow(() -> new RuntimeException("Kindergarten not found"));
 
         educator.setKindergarten(kindergarten); // если есть поле

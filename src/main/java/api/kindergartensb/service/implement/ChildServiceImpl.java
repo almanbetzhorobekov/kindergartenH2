@@ -5,10 +5,12 @@ import api.kindergartensb.entity.Child;
 import api.kindergartensb.mapper.ChildMapper;
 import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.service.ChildService;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+@Data
 @Service
 public class ChildServiceImpl implements ChildService {
 

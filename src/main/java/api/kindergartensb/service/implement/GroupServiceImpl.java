@@ -6,12 +6,13 @@ import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.mapper.GroupMapper;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupService;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-
+@Data
 @Service
 public class GroupServiceImpl implements GroupService {
 

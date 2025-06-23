@@ -5,10 +5,11 @@ import api.kindergartensb.dto.EducatorDTO;
 import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.dto.KindergartenDTO;
 import api.kindergartensb.service.KindergartenService;
+import lombok.Data;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+@Data
 @Service
 public class KindergartenServiceImpl implements KindergartenService {
 

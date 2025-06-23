@@ -8,5 +8,5 @@ import org.mapstruct.Mapper;
 public interface ParentsMapper {
 
     ParentsDTO toDTO(Parents parents);
-    Parents toParents(ParentsDTO parentsDTO);
+    Parents toEntity(ParentsDTO parentsDTO);
 }

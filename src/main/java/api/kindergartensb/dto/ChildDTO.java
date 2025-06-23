@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -15,6 +16,7 @@ import java.util.List;
 public class ChildDTO extends Person {
 
 //    private final String example;
+    private UUID id;
     private String kindergarten;
     @NotNull(message = "Age cannot be null")
     @Min(value = 1, message = "Age cannot be less than 1 year.")
