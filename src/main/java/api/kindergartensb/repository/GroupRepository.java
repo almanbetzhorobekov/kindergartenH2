@@ -12,8 +12,4 @@ import java.util.UUID;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, UUID> {
 
-    Optional<Group> findGroupByGroupName(String groupName);
-    List<Group> getAllBy(UUID id);
-    Optional<Group> findBy(String groupName);
-    Optional<Group> findByKindergarten_KindergartenName(String kindergartenName);
 }

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @SuperBuilder
 @MappedSuperclass
 public abstract class Person {
+    protected int age;
     @NotNull(message = "Firstname cannot be null")
     protected String firstName;
     @NotNull(message = "Lastname cannot be null")

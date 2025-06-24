@@ -1,20 +1,22 @@
 package api.kindergartensb.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.List;
 import java.util.UUID;
+
+@Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
+
 public class Kindergarten {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID uuid;
+    @Getter
+    @Setter
     private String kindergartenName;
     @OneToMany
     private List<Group> group;
@@ -22,7 +24,13 @@ public class Kindergarten {
     private List<Educator> educator;
     @OneToOne
     private Address address;
-    public String getName() {
-        return kindergartenName;
+
+    public Kindergarten() {
+        this.uuid = UUID.randomUUID();
     }
+
+    public void updateName(String newName) {
+        this.kindergartenName = newName;
+    }
+
 }

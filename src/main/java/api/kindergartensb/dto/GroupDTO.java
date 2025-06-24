@@ -1,27 +1,29 @@
 package api.kindergartensb.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
-
-/**
- * Represents a group in the kindergarten.
- *A group consists of children and belongs to a specific kindergarten.
- */
+import java.util.UUID;
 
 @Builder
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class GroupDTO {
+
+    private UUID uuid;
+
     @NotNull(message = "Group name can not be Null")
     private String groupName;
+
     @NotNull(message = "Kindergarten can not be Null")
-    private String kindergartenDTO;
+    private UUID kindergartenID;
+
     private List<ChildDTO> kinderList;
-    private String educatorDTO;
+
+    private UUID educatorID;
+
     public static final int MAX_CHILD = 20;
 
 }

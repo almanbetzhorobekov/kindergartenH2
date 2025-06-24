@@ -7,11 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
-
 @Repository
 public interface KindergartenRepository extends JpaRepository<Kindergarten, UUID> {
-    Optional<Kindergarten> findByKindergartenName(String kindergartenName);
 
-    @Override
-    Optional<Kindergarten> findById(UUID uuid);
+    Optional<Kindergarten> findByKindergartenName(String kindergartenName);
 }

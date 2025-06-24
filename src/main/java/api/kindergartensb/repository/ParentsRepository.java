@@ -9,6 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface ParentsRepository extends JpaRepository<Parents, UUID> {
-    Parents findChildByLastName(String lastName);
-    List<Parents> findByLastName(String lastName);
+
 }

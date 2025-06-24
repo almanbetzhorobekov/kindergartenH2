@@ -8,19 +8,23 @@ import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 @SuperBuilder
 @Entity
 public class Parents extends Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
     private String firstName;
     private String lastName;
-    private String address;
+    @OneToOne
+    private Address address;
     @ManyToMany
     private List<Child> child;
+
+    public Parents() {
+        this.uuid = UUID.randomUUID();
+    }
 
 }
 
