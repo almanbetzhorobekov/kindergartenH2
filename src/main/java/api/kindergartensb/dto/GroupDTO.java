@@ -18,7 +18,7 @@ public class GroupDTO {
     private String groupName;
 
     @NotNull(message = "Kindergarten can not be Null")
-    private UUID kindergartenId;
+    private KindergartenDTO kindergarten;
 
     private List<ChildDTO> kinderList;
 

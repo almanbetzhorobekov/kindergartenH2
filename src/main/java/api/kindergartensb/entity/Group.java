@@ -15,6 +15,7 @@ import java.util.UUID;
 public class Group {//имя Group резервирован в SQL
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
     @ManyToOne

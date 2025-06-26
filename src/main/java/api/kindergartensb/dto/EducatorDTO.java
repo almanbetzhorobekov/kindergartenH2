@@ -14,8 +14,8 @@ import java.util.List;
 @Data
 public class EducatorDTO extends Person {
 
-    private String kindergarten;
-    private List<String> groupDTOList;
+    private KindergartenDTO kindergarten;
+    private List<GroupDTO> groupDTOList;
 
     /**
      * Returns the role of the person, which is "Educator".

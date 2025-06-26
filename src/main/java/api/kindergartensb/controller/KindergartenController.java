@@ -29,6 +29,14 @@ public class KindergartenController {
 
     @PostMapping("/create")
     public ResponseEntity<KindergartenDTO> create(@RequestBody KindergartenDTO dto) {
+        int MAX_GROUP = this.MAX_GROUP;
+        String badRequest = "You can not create a Kindergarten with more than "+MAX_GROUP+" groups";
+        //как можно сообщить вместе null
+        if (dto.getGroupDTOS() != null && dto.getGroupDTOS().size() > MAX_GROUP) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(null);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(service.creat(dto));
     }
 

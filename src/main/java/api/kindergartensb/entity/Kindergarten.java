@@ -14,6 +14,7 @@ import java.util.UUID;
 public class Kindergarten {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
     private String kindergartenName;

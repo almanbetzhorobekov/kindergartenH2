@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface KindergartenRepository extends JpaRepository<Kindergarten, UUID> {
 
     List<Kindergarten> findByKindergartenName(String kindergartenName);
+
 }

@@ -12,17 +12,19 @@ import java.util.UUID;
 @SuperBuilder
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Educator extends Person {
     @Id
-//    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
     @ManyToOne
     private Kindergarten kindergarten;
     @OneToMany
     private List<Group> groupDTOList;
-
-    public Educator() {
-        this.uuid = UUID.randomUUID();
-    }
+//
+//    public Educator() {
+//        this.uuid = UUID.randomUUID();
+//    }
 
 }
