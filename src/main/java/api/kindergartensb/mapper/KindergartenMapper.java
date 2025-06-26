@@ -9,4 +9,5 @@ public interface KindergartenMapper {
 
     KindergartenDTO toDto(Kindergarten kindergarten);
     Kindergarten toEntity(KindergartenDTO kindergartenDTO);
+
 }

@@ -18,12 +18,12 @@ public class GroupDTO {
     private String groupName;
 
     @NotNull(message = "Kindergarten can not be Null")
-    private UUID kindergartenID;
+    private UUID kindergartenId;
 
     private List<ChildDTO> kinderList;
 
-    private UUID educatorID;
+    private UUID educatorId;
 
-    public static final int MAX_CHILD = 20;
+
 
 }

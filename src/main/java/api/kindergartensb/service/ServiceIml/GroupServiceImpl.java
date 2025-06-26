@@ -5,29 +5,28 @@ import api.kindergartensb.entity.Group;
 import api.kindergartensb.mapper.GroupMapper;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
-@RequiredArgsConstructor
 @Service
 public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
     private final GroupMapper mapper;
 
-    @Override
-    public GroupDTO create(GroupDTO dto) {
-        Group group = mapper.toEntity(dto);
-        group.setUuid(UUID.randomUUID());
-        Group saved  = groupRepository.save(group);
-        return mapper.toDto(saved);
-
+    public GroupServiceImpl(GroupRepository groupRepository, GroupMapper mapper) {
+        this.groupRepository = groupRepository;
+        this.mapper = mapper;
     }
 
+    @Override
+    public GroupDTO create(GroupDTO dto) {
 
+        Group group = mapper.toEntity(dto);
+        return mapper.toDto(groupRepository.save(group));
+
+    }
 
     @Override
     public List<GroupDTO> getAll() {
@@ -38,4 +37,5 @@ public class GroupServiceImpl implements GroupService {
     public int getGroupCount() {
         return 0;
     }
+
 }

@@ -19,20 +19,17 @@ public class KindergartenController {
     private final KindergartenService service;
     private final KindergartenGetter getter;
 
+    private final int MAX_GROUP = 10;
+
     public KindergartenController(KindergartenService service
                                     ,KindergartenGetter getter) {
         this.service = service;
         this.getter = getter;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<KindergartenDTO> create(@RequestBody KindergartenDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.creat(dto));
-    }
-
-    @PutMapping("/update-name")
-    public ResponseEntity<KindergartenDTO> updateName(@RequestBody String newName) {
-        return ResponseEntity.ok(service.updateName(newName));
     }
 
     @GetMapping("/{id}")

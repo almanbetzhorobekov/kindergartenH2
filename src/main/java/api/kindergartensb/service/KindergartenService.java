@@ -6,6 +6,5 @@ import api.kindergartensb.dto.KindergartenDTO;
 public interface KindergartenService{
 
     KindergartenDTO creat(KindergartenDTO kindergartenDTO);
-    KindergartenDTO updateName(String newName);
 
 }

@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/groups")
 @RequiredArgsConstructor
 public class GroupController {
-
+    public static final int MAX_CHILD = 20;
 }

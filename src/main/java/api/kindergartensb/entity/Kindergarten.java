@@ -9,28 +9,27 @@ import java.util.UUID;
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-
 public class Kindergarten {
 
     @Id
     private UUID uuid;
-    @Getter
-    @Setter
+
     private String kindergartenName;
+
     @OneToMany
-    private List<Group> group;
+    private List<Group> groups;
+
     @OneToMany
     private List<Educator> educator;
+
     @OneToOne
     private Address address;
+//
+//    public Kindergarten() {
+//        this.uuid = UUID.randomUUID();
+//    }
 
-    public Kindergarten() {
-        this.uuid = UUID.randomUUID();
-    }
-
-    public void updateName(String newName) {
-        this.kindergartenName = newName;
-    }
 
 }
