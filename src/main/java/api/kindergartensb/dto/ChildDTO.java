@@ -17,16 +17,16 @@ import java.util.UUID;
 @Data
 public class ChildDTO extends Person {
 
-//    private final String example;
-    private UUID id;
-    private String kindergarten;
+    private UUID uuid;
+
     @NotNull(message = "Age cannot be null")
     @Min(value = 1, message = "Age cannot be less than 1 year.")
     @Max(value = 6, message = "Age must not exceed 6 years.")
     private int age;
-    private String educatorID;
-    private List<ParentsDTO> parents;
-    private String groupName;
+
+    private List<UUID> parentsId;
+
+    private UUID groupId;
 
     @Override
     public String getRole() {

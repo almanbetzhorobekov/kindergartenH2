@@ -25,7 +25,4 @@ public class Address {
 
     private String plz;
 
-//    public Address() {
-//        this.uuid = UUID.randomUUID();
-//    }
 }

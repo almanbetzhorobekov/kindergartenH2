@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represents a parent in the kindergarten system.
@@ -20,8 +21,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class ParentsDTO extends Person {
 
-    private String address;
-    private List<ChildDTO> childDTOList = new ArrayList<>();
+    private UUID uuid;
+
+    private AddressDTO addressDTO;
 
     @Override
     public String getFullName() {

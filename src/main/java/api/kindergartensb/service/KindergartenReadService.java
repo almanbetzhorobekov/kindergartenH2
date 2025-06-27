@@ -5,8 +5,9 @@ import api.kindergartensb.dto.KindergartenDTO;
 import java.util.List;
 import java.util.UUID;
 
-public interface KindergartenGetter {
+public interface KindergartenReadService {
+
     KindergartenDTO getById(UUID id);
-    KindergartenDTO getOne();
     List<KindergartenDTO> getAll();
+
 }

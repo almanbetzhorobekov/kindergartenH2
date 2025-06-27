@@ -15,7 +15,6 @@ public abstract class Person {
     protected String lastName;
     @NotNull(message = "Birthday cannot be null")
     protected LocalDate birthday;
-    protected String addressDTO;
 
     public abstract String getRole();
 

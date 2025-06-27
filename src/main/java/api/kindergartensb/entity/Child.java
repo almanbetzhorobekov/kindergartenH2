@@ -16,18 +16,15 @@ public class Child extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-
     private UUID uuid;
-    @ManyToOne
-    @JoinColumn(name = "group_uuid")
-
-    private Group group;
 
     @ManyToMany
     private List<Parents> parents;
-//    public Child() {
-//        this.uuid = UUID.randomUUID();
-//    }
+
+    @ManyToOne
+    @JoinColumn(name = "group_uuid")
+    private Group group;
+
 
 }
 

@@ -18,16 +18,16 @@ public class Group {//имя Group резервирован в SQL
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
-    @ManyToOne
-    private Educator educator;
-
     private String groupName;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Child> child;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Child> childList;
 
     @ManyToOne
     private Kindergarten kindergarten;
+
+    @ManyToOne(optional = true)
+    private Educator educator;
 
 }
 

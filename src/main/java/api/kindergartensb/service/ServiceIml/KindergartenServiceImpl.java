@@ -4,56 +4,53 @@ import api.kindergartensb.dto.KindergartenDTO;
 import api.kindergartensb.entity.Kindergarten;
 import api.kindergartensb.mapper.KindergartenMapper;
 import api.kindergartensb.repository.KindergartenRepository;
-import api.kindergartensb.service.KindergartenGetter;
-import api.kindergartensb.service.KindergartenService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import api.kindergartensb.service.KindergartenReadService;
+import api.kindergartensb.service.KindergartenWriteService;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 
 @Service
-public class KindergartenServiceImpl implements KindergartenService, KindergartenGetter {
+@RequiredArgsConstructor
+public class KindergartenServiceImpl implements KindergartenReadService, KindergartenWriteService {
 
-    private final KindergartenRepository repository;
+    private final KindergartenRepository kindergartenRepository;
     private final KindergartenMapper kindergartenMapper;
-
-    public KindergartenServiceImpl(KindergartenRepository repository,
-                                   KindergartenMapper kindergartenMapper) {
-        this.repository = repository;
-        this.kindergartenMapper = kindergartenMapper;
-    }
-
-    @Override
-    public KindergartenDTO creat(KindergartenDTO kindergartenDTO) {
-        Kindergarten kindergarten = kindergartenMapper.toEntity(kindergartenDTO);
-        return kindergartenMapper.toDto(repository.save(kindergarten));
-    }
 
     @Override
     public KindergartenDTO getById(UUID id) {
-        return repository.findById(id)
+        return kindergartenRepository.findById(id)
                 .map(kindergartenMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Kindergarten not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Not found"));
     }
-
-    @Override
-    public KindergartenDTO getOne() {
-        Kindergarten kindergarten = repository.findAll().stream()
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Kindergarten not found"));
-        return kindergartenMapper.toDto(kindergarten);
-    }
-
 
     @Override
     public List<KindergartenDTO> getAll() {
-        return repository.findAll()
-                .stream()
+        return kindergartenRepository.findAll().stream()
                 .map(kindergartenMapper::toDto)
-                .toList();
+                .collect(Collectors.toList());
     }
 
+    @Override
+    public KindergartenDTO create(KindergartenDTO dto) {
+        Kindergarten saved = kindergartenRepository.save(kindergartenMapper.toEntity(dto));
+        return kindergartenMapper.toDto(saved);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        kindergartenRepository.deleteById(id);
+    }
+
+    @Override
+    public KindergartenDTO update(UUID id, KindergartenDTO dto) {
+        Kindergarten entity = kindergartenMapper.toEntity(dto);
+        entity.setUuid(id); // обязательно
+        return kindergartenMapper.toDto(kindergartenRepository.save(entity));
+    }
 }
-
-

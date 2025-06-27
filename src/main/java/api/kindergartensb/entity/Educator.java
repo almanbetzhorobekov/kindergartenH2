@@ -15,16 +15,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Educator extends Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
     @ManyToOne
     private Kindergarten kindergarten;
+
     @OneToMany
     private List<Group> groupDTOList;
-//
-//    public Educator() {
-//        this.uuid = UUID.randomUUID();
-//    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
 }

@@ -4,47 +4,52 @@ import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.entity.Group;
 import api.kindergartensb.mapper.GroupMapper;
 import api.kindergartensb.repository.GroupRepository;
-import api.kindergartensb.service.GroupGetter;
-import api.kindergartensb.service.GroupService;
+import api.kindergartensb.service.GroupReadService;
+import api.kindergartensb.service.GroupWriteService;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
-public class GroupServiceImpl implements GroupService, GroupGetter {
+@RequiredArgsConstructor
+public class GroupServiceImpl implements GroupReadService, GroupWriteService {
 
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
-
-    public GroupServiceImpl(GroupRepository groupRepository, GroupMapper groupMapper) {
-        this.groupRepository = groupRepository;
-        this.groupMapper = groupMapper;
-    }
-
-    @Override
-    public GroupDTO create(GroupDTO dto) {
-
-        Group group = groupMapper.toEntity(dto);
-        return groupMapper.toDto(groupRepository.save(group));
-
-    }
 
     @Override
     public GroupDTO getById(UUID id) {
         return groupRepository.findById(id)
                 .map(groupMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Group not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Group not found"));
     }
 
     @Override
     public List<GroupDTO> getAll() {
-        return List.of();
+        return groupRepository.findAll().stream()
+                .map(groupMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public int getGroupCount() {
-        return 0;
+    public GroupDTO create(GroupDTO dto) {
+        Group saved = groupRepository.save(groupMapper.toEntity(dto));
+        return groupMapper.toDto(saved);
     }
 
+    @Override
+    public GroupDTO update(UUID id, GroupDTO dto) {
+        Group updated = groupMapper.toEntity(dto);
+        updated.setUuid(id);
+        return groupMapper.toDto(groupRepository.save(updated));
+    }
+
+    @Override
+    public void delete(UUID id) {
+        groupRepository.deleteById(id);
+    }
 }

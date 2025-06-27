@@ -1,6 +1,5 @@
 package api.kindergartensb.entity;
 
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -15,6 +14,7 @@ import java.time.LocalDate;
 @SuperBuilder
 @MappedSuperclass
 public abstract class Person {
+
     protected int age;
     @NotNull(message = "Firstname cannot be null")
     protected String firstName;
@@ -22,10 +22,9 @@ public abstract class Person {
     protected String lastName;
     @NotNull(message = "Birthday can not be null")
     protected LocalDate birthday;
-    @ManyToOne
-    protected Address address;
 
     public @NotNull(message = "FullName cannot be null") String getFullName() {
         return firstName +  " " + lastName;
     }
+
 }

@@ -19,18 +19,13 @@ public class Kindergarten {
 
     private String kindergartenName;
 
-    @OneToMany
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Group> groups;
 
-    @OneToMany
-    private List<Educator> educator;
-
-    @OneToOne
-    private Address address;
-//
-//    public Kindergarten() {
-//        this.uuid = UUID.randomUUID();
-//    }
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Educator> educators;
 
 }

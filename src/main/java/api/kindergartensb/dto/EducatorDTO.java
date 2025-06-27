@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.UUID;
+
 /**
  * The Educator class represents an educator in the kindergarten.
  * An educator is a person associated with a kindergarten and multiple groups.
@@ -13,9 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Data
 public class EducatorDTO extends Person {
+    private UUID uuid;
 
     private KindergartenDTO kindergarten;
-    private List<GroupDTO> groupDTOList;
+
+    private List<UUID> groupDToUUisList;
+
+    private AddressDTO address;
 
     /**
      * Returns the role of the person, which is "Educator".

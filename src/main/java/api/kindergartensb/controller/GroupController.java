@@ -2,52 +2,47 @@ package api.kindergartensb.controller;
 
 import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.mapper.GroupMapper;
-import api.kindergartensb.service.GroupGetter;
-import api.kindergartensb.service.GroupService;
+import api.kindergartensb.service.GroupReadService;
+import api.kindergartensb.service.GroupWriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/groups")
-
+@RequiredArgsConstructor
 public class GroupController {
 
-    private final GroupService service;
-    private final GroupMapper groupMapper;
-    private final GroupGetter groupGetter;
-
-    public static final int MAX_CHILD = 20;
-
-    public GroupController(GroupService service,
-                           GroupMapper groupMapper,
-                           GroupGetter groupGetter) {
-        this.service = service;
-        this.groupMapper = groupMapper;
-        this.groupGetter = groupGetter;
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO groupDTO) {
-        int MAX_CHILD = this.MAX_CHILD;
-
-        if (groupDTO.getKinderList() != null && groupDTO.getKinderList().size() > MAX_CHILD) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(null);
-
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(service.create(groupDTO));
-    }
+    private final GroupReadService readService;
+    private final GroupWriteService writeService;
 
     @GetMapping("/{id}")
     public ResponseEntity<GroupDTO> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(groupGetter.getById(id));
+        return ResponseEntity.ok(readService.getById(id));
     }
 
+    @GetMapping
+    public List<GroupDTO> getAll() {
+        return readService.getAll();
+    }
+
+    @PostMapping
+    public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
+    }
+
+    @PutMapping("/{id}")
+    public GroupDTO update(@PathVariable UUID id, @RequestBody GroupDTO dto) {
+        return writeService.update(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        writeService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

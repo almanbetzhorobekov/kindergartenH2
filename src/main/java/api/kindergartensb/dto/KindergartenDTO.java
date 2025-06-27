@@ -18,10 +18,10 @@ public class KindergartenDTO {
     @NotNull(message = "Can not be Null")
     private final String kindergartenName;
 
-    private final String addressDTO;
+    private final AddressDTO addressDTO;
 
-    private final List<String> groupDTOS;
+    private List<GroupDTO> groups;
 
-    private List<String> educatorDTOList;
+    private List<EducatorDTO> educators;
 
 }
