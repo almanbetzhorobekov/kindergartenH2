@@ -9,7 +9,6 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class KindergartenDTO {
 
@@ -23,5 +22,7 @@ public class KindergartenDTO {
     private List<GroupDTO> groups;
 
     private List<EducatorDTO> educators;
+
+
 
 }

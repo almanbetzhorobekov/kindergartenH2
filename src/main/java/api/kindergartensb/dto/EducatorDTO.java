@@ -15,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Data
 public class EducatorDTO extends Person {
+
     private UUID uuid;
 
     private KindergartenDTO kindergarten;

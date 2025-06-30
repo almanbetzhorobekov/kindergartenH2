@@ -19,7 +19,8 @@ public class Kindergarten {
 
     private String kindergartenName;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)//CascadeType on sohranit Address vmesto s Kindergarten
+    //orphanremoval on mojet udalit vmesto kindergarten drugie svyazannye objekty
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
