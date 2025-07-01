@@ -25,7 +25,7 @@ public class Kindergarten {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Group> groups;
-
+//todo ändern BEZIEHUNG!
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Educator> educators;
 

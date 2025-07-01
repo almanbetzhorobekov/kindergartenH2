@@ -18,11 +18,10 @@ public class EducatorDTO extends Person {
 
     private UUID uuid;
 
-    private KindergartenDTO kindergarten;
 
-    private List<UUID> groupDToUUisList;
+    private List<UUID> groupIds;
 
-    private AddressDTO address;
+    private AddressDTO addressDTO;
 
     /**
      * Returns the role of the person, which is "Educator".
@@ -34,7 +33,4 @@ public class EducatorDTO extends Person {
         return "Educator";
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 }

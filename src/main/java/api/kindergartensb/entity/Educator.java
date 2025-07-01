@@ -20,11 +20,8 @@ public class Educator extends Person {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @ManyToOne
-    private Kindergarten kindergarten;
-
     @OneToMany
-    private List<Group> groupDTOList;
+    private List<Group> groups;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;

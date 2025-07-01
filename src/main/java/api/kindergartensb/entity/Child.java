@@ -25,8 +25,4 @@ public class Child extends Person {
     @JoinColumn(name = "group_uuid")
     private Group group;
 
-
 }
-
-
-

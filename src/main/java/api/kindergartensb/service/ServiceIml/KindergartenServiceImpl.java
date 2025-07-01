@@ -50,7 +50,7 @@ public class KindergartenServiceImpl implements KindergartenReadService, Kinderg
     @Override
     public KindergartenDTO update(UUID id, KindergartenDTO dto) {
         Kindergarten entity = kindergartenMapper.toEntity(dto);
-        entity.setUuid(id); // обязательно
+        entity.setUuid(id);
         return kindergartenMapper.toDto(kindergartenRepository.save(entity));
     }
 }

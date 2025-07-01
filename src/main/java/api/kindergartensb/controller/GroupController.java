@@ -30,7 +30,7 @@ public class GroupController {
         return readService.getAll();
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
     }

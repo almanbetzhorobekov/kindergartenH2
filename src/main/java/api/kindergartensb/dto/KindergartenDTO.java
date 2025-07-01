@@ -23,6 +23,4 @@ public class KindergartenDTO {
 
     private List<EducatorDTO> educators;
 
-
-
 }

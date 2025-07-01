@@ -19,7 +19,7 @@ public class GroupDTO {
 
     private List<ChildDTO> childList;
 
-    private KindergartenDTO kindergarten;
+    private UUID kindergartenId;
 
     private UUID educatorId;
 
