@@ -30,6 +30,11 @@ public class ChildController {
         return ResponseEntity.ok(childReadService.getAllChildren());
     }
 
+    @GetMapping("/by-parent/{parentId}")
+    public ResponseEntity<List<ChildDTO>> getChildrenByParent(@PathVariable UUID parentId) {
+        return ResponseEntity.ok(childReadService.getChildrenByParentId(parentId));
+    }
+
     @GetMapping("/getParents")
     public ResponseEntity<List<ParentsDTO>> getParents() {
         return ResponseEntity.ok(childReadService.getParents());

@@ -11,5 +11,6 @@ public interface ChildReadService {
     ChildDTO getById(UUID id);
     List<ChildDTO> getAllChildren();
     List<ParentsDTO> getParents();
+    List<ChildDTO> getChildrenByParentId(UUID parentId);
 
 }

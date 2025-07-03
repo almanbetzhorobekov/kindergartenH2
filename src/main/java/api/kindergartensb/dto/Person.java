@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Data
 @SuperBuilder
 public abstract class Person {
+
     @NotNull(message = "Firstname cannot be null")
     protected String firstName;
     @NotNull(message = "Lastname cannot be null")

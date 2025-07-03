@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface ChildRepository extends JpaRepository<Child, UUID> {
-
+    List<Child> findByParentsUuid(UUID parentId);
 }

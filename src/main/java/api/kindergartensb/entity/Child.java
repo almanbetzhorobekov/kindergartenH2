@@ -19,6 +19,11 @@ public class Child extends Person {
     private UUID uuid;
 
     @ManyToMany
+    @JoinTable(
+            name = "child_parents",
+            joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_id")
+    )
     private List<Parents> parents;
 
     @ManyToOne

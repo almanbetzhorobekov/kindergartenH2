@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -49,8 +50,10 @@ public class KindergartenServiceImpl implements KindergartenReadService, Kinderg
 
     @Override
     public KindergartenDTO update(UUID id, KindergartenDTO dto) {
-        Kindergarten entity = kindergartenMapper.toEntity(dto);
-        entity.setUuid(id);
-        return kindergartenMapper.toDto(kindergartenRepository.save(entity));
+        Kindergarten entityExisting = kindergartenRepository.findById(id)
+                        .orElseThrow(() -> new NoSuchElementException("Kindergarten not found with id: " + id));
+        entityExisting.setKindergartenName(dto.getKindergartenName());
+        return kindergartenMapper.toDto(kindergartenRepository.save(entityExisting));
+
     }
 }

@@ -35,11 +35,14 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
         this.educatorMapper = educatorMapper;
         this.groupRepository = groupRepository;
         this.groupMapper = groupMapper;
+
     }
 
     @Override
     public EducatorDTO getEducatorById(UUID id) {
-        return null;
+        return educatorRepository.findById(id)
+                .map(educatorMapper::toDto)
+                .orElseThrow(() -> new NoSuchElementException("No educator found with id: " + id));
     }
 
     @Override
@@ -56,7 +59,7 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     }
 //todo
     @Override
-    public AddressDTO getAddressById(UUID id) {
+    public AddressDTO getAddress() {
         return null;
     }
 
@@ -73,6 +76,18 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
             throw new NoSuchElementException("Educator not found with id " + id);
         }
         educatorRepository.deleteById(id);
-
     }
+
+    @Override
+    public EducatorDTO update(UUID id, EducatorDTO educatorDTO) {
+        Educator existing = educatorRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Educator not found with id " + id));
+
+        existing.setFirstName(educatorDTO.getFirstName());
+        existing.setLastName(educatorDTO.getLastName());
+        existing.setBirthday(educatorDTO.getBirthday());
+
+        return educatorMapper.toDto(educatorRepository.save(existing));
+    }
+
 }

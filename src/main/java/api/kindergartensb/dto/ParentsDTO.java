@@ -1,5 +1,6 @@
 package api.kindergartensb.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -23,6 +24,7 @@ public class ParentsDTO extends Person {
 
     private UUID uuid;
 
+    @NotNull(message = "Can not be null please add address")
     private AddressDTO addressDTO;
 
     @Override

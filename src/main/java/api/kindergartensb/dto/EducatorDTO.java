@@ -18,11 +18,9 @@ public class EducatorDTO extends Person {
 
     private UUID uuid;
 
-
     private List<UUID> groupIds;
 
     private AddressDTO addressDTO;
-
     /**
      * Returns the role of the person, which is "Educator".
      *

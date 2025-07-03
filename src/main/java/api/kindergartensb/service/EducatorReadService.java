@@ -13,6 +13,6 @@ public interface EducatorReadService {
     EducatorDTO getEducatorById(UUID id);
     Optional<GroupDTO> getGroupById(UUID id);
     List<GroupDTO> getGroups();
-    AddressDTO getAddressById(UUID id);
+    AddressDTO getAddress();
 
 }

@@ -43,9 +43,11 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
 
     @Override
     public GroupDTO update(UUID id, GroupDTO dto) {
-        Group updated = groupMapper.toEntity(dto);
-        updated.setUuid(id);
-        return groupMapper.toDto(groupRepository.save(updated));
+        Group groupExisting = groupRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Group not found by " + id));
+
+        groupExisting.setGroupName(dto.getGroupName());
+        return groupMapper.toDto(groupRepository.save(groupExisting));
     }
 
     @Override

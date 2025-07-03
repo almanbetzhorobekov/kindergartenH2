@@ -17,6 +17,7 @@ public class KindergartenDTO {
     @NotNull(message = "Can not be Null")
     private final String kindergartenName;
 
+    @NotNull(message = "Can not be null")
     private final AddressDTO addressDTO;
 
     private List<GroupDTO> groups;
