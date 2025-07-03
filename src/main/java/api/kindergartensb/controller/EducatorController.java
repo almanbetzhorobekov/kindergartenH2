@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Data
 @RestController
-@RequestMapping("/educators")
+@RequestMapping("/api/educators")
 public class EducatorController {
 
     private final EducatorReadService educatorReadService;

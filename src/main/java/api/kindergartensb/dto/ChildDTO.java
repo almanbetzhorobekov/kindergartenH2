@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,11 +20,6 @@ import java.util.UUID;
 public class ChildDTO extends Person {
 
     private UUID uuid;
-
-    @NotNull(message = "Age cannot be null")
-    @Min(value = 1, message = "Age cannot be less than 1 year.")
-    @Max(value = 6, message = "Age must not exceed 6 years.")
-    private int age;
 
     private List<UUID> parentsId;
 
@@ -36,6 +33,13 @@ public class ChildDTO extends Person {
     @Override
     public String getFullName() {
         return super.getFullName();
+    }
+
+    public int getAge() {
+        if (birthday == null) {
+            return 0;
+        }
+        return Period.between(birthday, LocalDate.now()).getYears();
     }
 }
 

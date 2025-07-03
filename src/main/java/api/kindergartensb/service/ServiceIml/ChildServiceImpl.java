@@ -7,12 +7,14 @@ import api.kindergartensb.mapper.ChildMapper;
 import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.service.ChildReadService;
 import api.kindergartensb.service.ChildWriteService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class ChildServiceImpl implements ChildReadService, ChildWriteService {
 
@@ -30,14 +32,15 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
                 .map(childMapper::toDto)
                 .orElseThrow(() -> new NoSuchElementException("Child not found with id: " + id));
     }
-    //TODO
+
     @Override
     public List<ChildDTO> getAllChildren() {
         return childRepository.findAll().stream()
                 .map(childMapper::toDto)
                 .collect(Collectors.toList());
     }
-    //TODO
+
+
     @Override
     public List<ParentsDTO> getParents() {
         return childRepository.findAll().stream()
@@ -60,6 +63,10 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
 
     @Override
     public ChildDTO create(ChildDTO childDTO) {
+        int age = childDTO.getAge();
+        if (age < 1 || age > 6) {
+            throw new IllegalArgumentException("Age must be between 1 and 6");
+        }
         Child entity = childMapper.toEntity(childDTO);
         Child saved = childRepository.save(entity);
         return childMapper.toDto(saved);
@@ -73,7 +80,12 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
         childRepository.deleteById(id);
     }
 
+    @Override
     public ChildDTO updateChild(UUID id, ChildDTO dto) {
+        int age = dto.getAge();
+        if (age < 1 || age > 6) {
+            throw new IllegalArgumentException("Age must be between 1 and 6");
+        }
         Child existing = childRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Child not found with id: " + id));
 

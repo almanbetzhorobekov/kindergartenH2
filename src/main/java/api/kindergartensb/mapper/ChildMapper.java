@@ -26,7 +26,9 @@ public interface ChildMapper {
     //pereobrazovanie List<Parents> na List<UUID>
     @Named("mapParentsToIds")
     default List<UUID> mapParentsToIds(List<Parents> parents) {
-        if (parents == null) return null;
+        if (parents == null) {
+            return null;
+        }
         return parents.stream()
                 .map(Parents::getUuid)
                 .collect(Collectors.toList());
@@ -34,7 +36,9 @@ public interface ChildMapper {
     //Pereobrazovanie List<UUID> -> List<Parents>
     @Named("mapIdsToParents")
     default List<Parents> mapIdsToParents(List<UUID> ids) {
-        if (ids == null) return null;
+        if (ids == null) {
+            return null;
+        }
         return ids.stream()
                 .map(id -> Parents.builder().uuid(id).build())
                 .collect(Collectors.toList());
@@ -42,7 +46,9 @@ public interface ChildMapper {
     //Pereobrazovanie UUID -> Group
     @Named("mapGroupFromId")
     default Group mapGroupFromId(UUID id) {
-        if (id == null) return null;
+        if (id == null) {
+            return null;
+        }
         return Group.builder().uuid(id).build();
     }
 

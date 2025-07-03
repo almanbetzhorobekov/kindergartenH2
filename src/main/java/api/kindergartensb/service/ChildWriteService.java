@@ -10,5 +10,4 @@ public interface ChildWriteService {
     ChildDTO updateChild(UUID id,ChildDTO childDTO);
     void deleteChild(UUID id);
 
-
 }
