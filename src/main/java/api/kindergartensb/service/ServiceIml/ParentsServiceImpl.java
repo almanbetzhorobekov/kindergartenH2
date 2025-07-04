@@ -44,7 +44,6 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
     public ParentsDTO create(ParentsDTO parentsDTO) {
         Parents savedParents = parentsRepository.save(parentsMapper
                 .toEntity(parentsDTO));
-
         return parentsMapper.toDto(savedParents);
     }
 

@@ -4,13 +4,16 @@ import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;
 import api.kindergartensb.entity.Child;
 import api.kindergartensb.mapper.ChildMapper;
+import api.kindergartensb.mapper.ParentsMapper;
 import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.service.ChildReadService;
 import api.kindergartensb.service.ChildWriteService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -20,10 +23,12 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
 
     private final ChildRepository childRepository;
     private final ChildMapper childMapper;
+    private final ParentsMapper parentsMapper;
 
-    public ChildServiceImpl(ChildRepository childRepository, ChildMapper childMapper) {
+    public ChildServiceImpl(ChildRepository childRepository, ChildMapper childMapper, ParentsMapper parentsMapper) {
         this.childRepository = childRepository;
         this.childMapper = childMapper;
+        this.parentsMapper = parentsMapper;
     }
 
     @Override
@@ -40,19 +45,17 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
                 .collect(Collectors.toList());
     }
 
-
+    //TODO ändern
     @Override
-    public List<ParentsDTO> getParents() {
-        return childRepository.findAll().stream()
-                .flatMap(child -> child.getParents().stream())
-                .distinct()
-                .map(parents -> ParentsDTO.builder()
-                        .uuid(parents.getUuid())
-                        .firstName(parents.getFirstName())
-                        .lastName(parents.getLastName())
-                        .build())
-                .collect(Collectors.toList());
+    public List<ParentsDTO> getParents(UUID id){
+        return childRepository.findById(id)
+                .map(value -> value.getParents()
+                        .stream()
+                        .map(parentsMapper::toDto)
+                        .collect(Collectors.toList()))
+                .orElseGet(List::of);
     }
+
 
     @Override
     public List<ChildDTO> getChildrenByParentId(UUID parentId) {
@@ -94,6 +97,11 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
         existing.setBirthday(dto.getBirthday());
 
         return childMapper.toDto(childRepository.save(existing));
+    }
+
+    @Override
+    public boolean isExist(UUID id) {
+        return childRepository.existsById(id);
     }
 
 }

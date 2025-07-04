@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -25,7 +26,7 @@ public class ChildController {
         return ResponseEntity.ok(childReadService.getById(id));
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<ChildDTO>> getAll() {
         return ResponseEntity.ok(childReadService.getAllChildren());
     }
@@ -35,23 +36,32 @@ public class ChildController {
         return ResponseEntity.ok(childReadService.getChildrenByParentId(parentId));
     }
 
-    @GetMapping("/getParents")
-    public ResponseEntity<List<ParentsDTO>> getParents() {
-        return ResponseEntity.ok(childReadService.getParents());
+    @GetMapping("/parents-by-child/{id}")
+    public ResponseEntity<?> getParentsByChildId(@PathVariable UUID id) {
+        if (!childReadService.isExist(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Child not found by id " + id));
+        }
+        List<ParentsDTO> parents = childReadService.getParents(id);
+        if (parents.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Parent not found by child id " + id));
+        }
+        return ResponseEntity.ok(parents);
     }
 
-    @PostMapping("/createChild")
+    @PostMapping
     public ResponseEntity<ChildDTO> createChild(@RequestBody ChildDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(childWriteService.create(dto));
 
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ChildDTO> updateChild(@PathVariable UUID id, @RequestBody ChildDTO dto) {
         return ResponseEntity.ok(childWriteService.updateChild(id, dto));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         childWriteService.deleteChild(id);
         return ResponseEntity.noContent().build(); // 204

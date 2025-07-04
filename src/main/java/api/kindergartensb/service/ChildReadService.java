@@ -10,7 +10,8 @@ public interface ChildReadService {
 
     ChildDTO getById(UUID id);
     List<ChildDTO> getAllChildren();
-    List<ParentsDTO> getParents();
+    List<ParentsDTO> getParents(UUID id);
     List<ChildDTO> getChildrenByParentId(UUID parentId);
+    boolean isExist(UUID id);
 
 }
