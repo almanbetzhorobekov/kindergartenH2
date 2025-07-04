@@ -31,7 +31,7 @@ public class KindergartenController {
         return readService.getAll();
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<KindergartenDTO> create(@RequestBody KindergartenDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
     }

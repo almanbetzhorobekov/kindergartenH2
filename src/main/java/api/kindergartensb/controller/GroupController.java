@@ -33,7 +33,7 @@ public class GroupController {
     }
 
     // POST /api/groups
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
     }

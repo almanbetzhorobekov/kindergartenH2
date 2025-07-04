@@ -27,7 +27,7 @@ public class EducatorController {
         return ResponseEntity.ok(educatorReadService.getEducatorById(id));
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<EducatorDTO> create(@RequestBody EducatorDTO educatorDTO) {
         return ResponseEntity.ok(educatorWriteService.create(educatorDTO));
     } //status code 200(ok)
