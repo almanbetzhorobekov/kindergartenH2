@@ -8,15 +8,15 @@ import api.kindergartensb.mapper.ParentsMapper;
 import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.service.ChildReadService;
 import api.kindergartensb.service.ChildWriteService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+/**
+ * Service for managing children in the kindergarten system.
+ */
 @Transactional
 @Service
 public class ChildServiceImpl implements ChildReadService, ChildWriteService {

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+/**
+ * REST controller for managing children.
+ */
 @RestController
 @RequestMapping("/api/children")
 @RequiredArgsConstructor
@@ -21,6 +23,12 @@ public class ChildController {
     private final ChildReadService childReadService;
     private final ChildWriteService childWriteService;
 
+    /**
+     * Returns a child by ID.
+     *
+     * @param id the UUID of the child
+     * @return the child data
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ChildDTO> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(childReadService.getById(id));
