@@ -13,7 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+/**
+ * Service implementation for managing {@link Group} entities.
+ * <p>
+ * Provides read and write operations such as create, update, delete and fetch groups.
+ * Uses {@link GroupRepository} for persistence and {@link GroupMapper} for mapping
+ * between entities and DTOs.
+ * </p>
+ */
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupReadService, GroupWriteService {

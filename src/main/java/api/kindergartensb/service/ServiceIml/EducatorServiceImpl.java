@@ -37,20 +37,35 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
         this.groupMapper = groupMapper;
 
     }
-
+    /**
+     * Retrieves an {@link EducatorDTO} by its unique identifier.
+     *
+     * @param id the UUID of the educator to retrieve
+     * @return the corresponding {@link EducatorDTO}
+     * @throws NoSuchElementException if no educator with the specified ID exists
+     */
     @Override
     public EducatorDTO getEducatorById(UUID id) {
         return educatorRepository.findById(id)
                 .map(educatorMapper::toDto)
                 .orElseThrow(() -> new NoSuchElementException("No educator found with id: " + id));
     }
-
+    /**
+     * Retrieves a {@link GroupDTO} by its unique identifier, if it exists.
+     *
+     * @param id the UUID of the group to retrieve
+     * @return an {@link Optional} containing the {@link GroupDTO} if found, or empty if not found
+     */
     @Override
     public Optional<GroupDTO> getGroupById(UUID id) {
         return groupRepository.findById(id)
                 .map(groupMapper::toDto);
     }
-
+    /**
+     * Retrieves all groups from the repository and maps them to {@link GroupDTO} objects.
+     *
+     * @return a list of all groups as {@link GroupDTO}
+     */
     @Override
     public List<GroupDTO> getGroups() {
         return groupRepository.findAll().stream()
@@ -62,22 +77,39 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     public AddressDTO getAddress() {
         return null;
     }
-
+    /**
+     * Creates and saves a new {@link Educator} entity from the provided {@link EducatorDTO}.
+     *
+     * @param educatorDTO the {@link EducatorDTO} containing data for the new educator
+     * @return the saved {@link EducatorDTO} after persistence
+     */
     @Override
     public EducatorDTO create(EducatorDTO educatorDTO) {
         Educator saved  = educatorRepository.save(educatorMapper
                 .toEntity(educatorDTO));
         return educatorMapper.toDto(saved);
     }
-
+    /**
+     * Deletes an {@link Educator} entity by its unique identifier.
+     *
+     * @param id the UUID of the educator to be deleted
+     * @throws NoSuchElementException if no educator with the specified ID exists
+     */
     @Override
     public void delete(UUID id) {
-        if (educatorRepository.existsById(id)) {
+        if (!educatorRepository.existsById(id)) {
             throw new NoSuchElementException("Educator not found with id " + id);
         }
         educatorRepository.deleteById(id);
     }
-
+    /**
+     * Updates an existing {@link Educator} entity's basic information using the provided {@link EducatorDTO}.
+     *
+     * @param id the UUID of the educator to update
+     * @param educatorDTO the {@link EducatorDTO} containing updated data
+     * @return the updated {@link EducatorDTO} after saving
+     * @throws NoSuchElementException if no educator with the specified ID exists
+     */
     @Override
     public EducatorDTO update(UUID id, EducatorDTO educatorDTO) {
         Educator existing = educatorRepository.findById(id)
