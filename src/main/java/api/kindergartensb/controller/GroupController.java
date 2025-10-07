@@ -31,7 +31,7 @@ public class GroupController {
     public List<GroupDTO> getAll() {
         return readService.getAll();
     }
-
+    
     // POST /api/groups
     @PostMapping
     public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO dto) {

@@ -92,8 +92,8 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
     @Override
     public ChildDTO create(ChildDTO childDTO) {
         int age = childDTO.getAge();
-        if (age < 1 || age > 6) {
-            throw new IllegalArgumentException("Age must be between 1 and 6");
+        if (age < 1 || age > 7) {
+            throw new IllegalArgumentException("Age must be between 1 and 7");
         }
         Child entity = childMapper.toEntity(childDTO);
         Child saved = childRepository.save(entity);

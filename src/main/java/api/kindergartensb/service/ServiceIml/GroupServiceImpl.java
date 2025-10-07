@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -47,9 +48,15 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
      */
     @Override
     public List<GroupDTO> getAll() {
-        return groupRepository.findAll().stream()
-                .map(groupMapper::toDto)
-                .collect(Collectors.toList());
+        // get static group infos
+        List<GroupDTO> groups = new ArrayList<>();
+        for (int i=1; i<5; i++) {
+            groups.add(GroupDTO.builder()
+                    .uuid(UUID.randomUUID())
+                    .groupName("Group Num " + i)
+                    .build());
+        }
+        return groups;
     }
     /**
      * Creates and saves a new {@link Group} entity from the provided {@link GroupDTO}.

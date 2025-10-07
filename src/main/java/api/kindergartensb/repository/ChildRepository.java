@@ -9,6 +9,5 @@ import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface ChildRepository extends JpaRepository<Child, UUID> {
-    Optional<Child> findById();
     List<Child> findByParentsUuid(UUID parentId);
 }
