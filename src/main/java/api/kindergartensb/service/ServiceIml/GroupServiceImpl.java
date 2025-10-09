@@ -50,7 +50,7 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
     public List<GroupDTO> getAll() {
         // get static group infos
         List<GroupDTO> groups = new ArrayList<>();
-        for (int i=1; i<5; i++) {
+        for (int i=1; i<7; i++) {
             groups.add(GroupDTO.builder()
                     .uuid(UUID.randomUUID())
                     .groupName("Group Num " + i)

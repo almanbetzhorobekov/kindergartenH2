@@ -32,13 +32,6 @@ public class EducatorController {
         return ResponseEntity.ok(educatorWriteService.create(educatorDTO));
     } //status code 200(ok)
 
-//    @PostMapping
-//    public ResponseEntity<EducatorDTO> create(@RequestBody EducatorDTO educatorDTO) {
-//       EducatorDTO created = educatorWriteService.create(educatorDTO);
-//    return ResponseEntity
-//            .created(URI.create("/educators/" + created.getUuid()))
-//            .body(created); // статус 201 Created
-//    }
 
     @GetMapping("/groups/{id}")
     public ResponseEntity<GroupDTO> getGroupById(@PathVariable UUID id) {
