@@ -1,8 +1,6 @@
 package api.kindergartensb.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,16 +17,9 @@ import java.util.UUID;
 @Data
 public class ChildDTO extends Person {
 
-    private UUID uuid;
-
     private List<UUID> parentsId;
 
     private UUID groupId;
-
-    @Override
-    public String getRole() {
-        return "Kind";
-    }
 
     @Override
     public String getFullName() {

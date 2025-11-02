@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,13 +19,8 @@ public class Child extends Person {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @ManyToMany
-    @JoinTable(
-            name = "child_parents",
-            joinColumns = @JoinColumn(name = "child_id"),
-            inverseJoinColumns = @JoinColumn(name = "parent_id")
-    )
-    private List<Parents> parents;
+    @ManyToMany(mappedBy = "children", fetch = FetchType.EAGER)
+    private List<Parents> parents = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "group_uuid")

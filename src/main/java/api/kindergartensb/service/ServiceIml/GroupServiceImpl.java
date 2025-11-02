@@ -7,10 +7,11 @@ import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.GroupReadService;
 import api.kindergartensb.service.GroupWriteService;
 import jakarta.persistence.EntityNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -47,17 +48,23 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
      * @return list of all groups
      */
     @Override
+    @Transactional(readOnly = true)
     public List<GroupDTO> getAll() {
-        // get static group infos
-        List<GroupDTO> groups = new ArrayList<>();
-        for (int i=1; i<7; i++) {
-            groups.add(GroupDTO.builder()
-                    .uuid(UUID.randomUUID())
-                    .groupName("Group Num " + i)
-                    .build());
-        }
-        return groups;
+        return groupRepository.findAll().stream()
+                .map(groupMapper::toDto)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public List<GroupDTO> getGroupsByKindergartenId(UUID kindergartenId) {
+        return groupRepository.findByKindergartenUuid(kindergartenId)
+                .stream()
+                .map(groupMapper::toDto)
+                .toList();
+    }
+
+
     /**
      * Creates and saves a new {@link Group} entity from the provided {@link GroupDTO}.
      *

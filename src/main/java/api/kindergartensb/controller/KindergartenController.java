@@ -1,5 +1,6 @@
 package api.kindergartensb.controller;
 
+import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.dto.KindergartenDTO;
 
 
@@ -22,14 +23,15 @@ public class KindergartenController {
     private final KindergartenWriteService writeService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<KindergartenDTO> get(@PathVariable UUID id) {
+    public ResponseEntity<KindergartenDTO> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(readService.getById(id));
     }
 
     @GetMapping
-    public List<KindergartenDTO> getAll() {
+    public List<KindergartenDTO> getAllKindergartens() {
         return readService.getAll();
     }
+
 
     @PostMapping
     public ResponseEntity<KindergartenDTO> create(@RequestBody KindergartenDTO dto) {

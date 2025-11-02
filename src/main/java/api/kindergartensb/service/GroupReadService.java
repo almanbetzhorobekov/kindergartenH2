@@ -8,7 +8,6 @@ import java.util.UUID;
 public interface GroupReadService {
     GroupDTO getById(UUID id);
     List<GroupDTO> getAll();
-
-
+    List<GroupDTO> getGroupsByKindergartenId(UUID kindergartenId);
 }
 

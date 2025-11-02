@@ -1,5 +1,6 @@
 package api.kindergartensb.controller;
 import api.kindergartensb.dto.AddressDTO;
+import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;
 import api.kindergartensb.service.ParentsReadService;
 import api.kindergartensb.service.ParentsWriteService;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,7 +21,11 @@ public class ParentsController {
     public ParentsController(ParentsReadService parentsReadService, ParentsWriteService parentsWriteService) {
         this.parentsReadService = parentsReadService;
         this.parentsWriteService = parentsWriteService;
+    }
 
+    @GetMapping("/children")
+    public List<ChildDTO> getAllChildren(){
+        return null;
     }
 
     @GetMapping("/{id}")
@@ -28,6 +34,12 @@ public class ParentsController {
         return ResponseEntity.ok(parent);
     }
 
+    /*@GetMapping("/child/{childId}")
+    public ResponseEntity<List<ParentsDTO>> getParentsByChildId(@PathVariable UUID childId) {
+        List<ParentsDTO> parents = parentsReadService.getParentsByChildId(childId);
+        return ResponseEntity.ok(parents);
+    }
+*/
     @GetMapping("/address/{id}")
     public ResponseEntity<AddressDTO> getAddressByParentId(@PathVariable UUID id) {
         AddressDTO address = parentsReadService.getAddressByParentId(id);

@@ -20,10 +20,12 @@ public class Educator extends Person {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @OneToMany
+    private String email;
+    private String phoneNumber;
+
+    @OneToMany(mappedBy = "educator")
     private List<Group> groups;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
-
 }

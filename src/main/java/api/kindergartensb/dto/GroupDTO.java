@@ -1,5 +1,6 @@
 package api.kindergartensb.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupDTO {
-
+    //@JsonProperty("id")
     private UUID uuid;
 
     @NotNull(message = "Group name can not be Null")
@@ -20,6 +21,8 @@ public class GroupDTO {
     private List<ChildDTO> childList;
 
     private UUID kindergartenId;
+
+    private String kindergartenName;
 
     private UUID educatorId;
 

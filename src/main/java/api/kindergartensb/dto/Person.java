@@ -17,8 +17,6 @@ public abstract class Person {
     @NotNull(message = "Birthday cannot be null")
     protected LocalDate birthday;
 
-    public abstract String getRole();
-
     public String getFullName() {
         return firstName + " " + lastName;
     }
