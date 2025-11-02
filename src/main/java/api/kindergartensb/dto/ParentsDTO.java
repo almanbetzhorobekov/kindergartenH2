@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,18 +21,19 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 public class ParentsDTO extends Person {
 
-    private UUID uuid;
+ //
+    //   private UUID uuid;
 
     @NotNull(message = "Can not be null please add address")
     private AddressDTO addressDTO;
+
+    private List<UUID> childrenId;
+
+    private String phoneNumber;
 
     @Override
     public String getFullName() {
         return super.getFullName();
     }
 
-    @Override
-    public String getRole() {
-        return "Parent";
-    }
 }

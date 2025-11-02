@@ -15,20 +15,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Data
 public class EducatorDTO extends Person {
-
     private UUID uuid;
-
+    private String email;
+    private String phoneNumber;
+    private UUID kindergartenId;
     private List<UUID> groupIds;
-
     private AddressDTO addressDTO;
-    /**
-     * Returns the role of the person, which is "Educator".
-     *
-     * @return The role as a string.
-     */
-    @Override
-    public String getRole() {
-        return "Educator";
-    }
-
 }

@@ -24,6 +24,7 @@ public class Group {//имя Group резервирован в SQL
     private List<Child> childList;
 
     @ManyToOne
+    @JoinColumn(name = "kindergarten_id")
     private Kindergarten kindergarten;
 
     @ManyToOne(optional = true)

@@ -9,6 +9,7 @@ import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.service.ChildReadService;
 import api.kindergartensb.service.ChildWriteService;
 import jakarta.transaction.Transactional;
+import org.aspectj.weaver.patterns.WildChildFinder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -95,6 +96,7 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
         if (age < 1 || age > 7) {
             throw new IllegalArgumentException("Age must be between 1 and 7");
         }
+        final Child built = Child.builder().uuid(UUID.randomUUID()).age(null).build();
         Child entity = childMapper.toEntity(childDTO);
         Child saved = childRepository.save(entity);
         return childMapper.toDto(saved);

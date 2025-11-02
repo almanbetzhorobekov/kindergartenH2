@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor(force = true)
 public class KindergartenDTO {
 
-    private UUID uuid;
+    private final UUID uuid;
 
     @NotNull(message = "Can not be Null")
     private final String kindergartenName;

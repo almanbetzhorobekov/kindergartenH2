@@ -1,7 +1,6 @@
 package api.kindergartensb.controller;
 
 import api.kindergartensb.dto.GroupDTO;
-import api.kindergartensb.mapper.GroupMapper;
 import api.kindergartensb.service.GroupReadService;
 import api.kindergartensb.service.GroupWriteService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +29,11 @@ public class GroupController {
     @GetMapping
     public List<GroupDTO> getAll() {
         return readService.getAll();
+    }
+
+    @GetMapping("/by-kindergarten/{kindergartenId}")
+    public List<GroupDTO> getGroupsByKindergartenId(@PathVariable UUID kindergartenId) {
+        return readService.getGroupsByKindergartenId(kindergartenId);
     }
     
     // POST /api/groups

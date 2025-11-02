@@ -9,7 +9,10 @@ import api.kindergartensb.repository.ParentsRepository;
 import api.kindergartensb.service.ParentsReadService;
 import api.kindergartensb.service.ParentsWriteService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Service implementation for managing {@link Parents} entities.
@@ -30,6 +33,7 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
         this.parentsRepository = parentsRepository;
         this.addressMapper = addressMapper;
     }
+
     /**
      * Retrieves a {@link ParentsDTO} by its unique identifier.
      *
@@ -57,6 +61,23 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
 
         return addressMapper.toDto(parent.getAddress());
     }
+
+   /**@Override
+    public List<ParentsDTO> getParentsByChildId(UUID childId) {
+        return parentsRepository.findAll().stream()
+                .filter(parents -> parents.getChildList().stream()
+                        .anyMatch(child -> getChildId));
+    }
+*/
+    @Override
+    public List<ParentsDTO> getAllParents() {
+        List<Parents> parentsList = parentsRepository.findAll();
+        return parentsList.stream()
+                .map(parentsMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+
     /**
      * Creates and saves a new {@link Parents} entity from the provided {@link ParentsDTO}.
      *

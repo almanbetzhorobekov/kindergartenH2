@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service implementation for managing {@link Kindergarten} entities.
@@ -47,6 +48,7 @@ public class KindergartenServiceImpl implements KindergartenReadService, Kinderg
      * @return list of all kindergartens
      */
     @Override
+    @Transactional(readOnly = true)
     public List<KindergartenDTO> getAll() {
         return kindergartenRepository.findAll().stream()
                 .map(kindergartenMapper::toDto)
