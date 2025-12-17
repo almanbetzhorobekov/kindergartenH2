@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/groups")
 @RequiredArgsConstructor
@@ -20,9 +21,9 @@ public class GroupController {
     private final GroupWriteService writeService;
 
     // GET /api/groups/{id}
-    @GetMapping("/{id}")
-    public ResponseEntity<GroupDTO> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(readService.getById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<GroupDTO> getById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(readService.getById(uuid));
     }
 
     // GET /api/groups
@@ -43,15 +44,15 @@ public class GroupController {
     }
 
     // PUT /api/groups/{id}
-    @PutMapping("/{id}")
-    public GroupDTO update(@PathVariable UUID id, @RequestBody GroupDTO dto) {
-        return writeService.update(id, dto);
+    @PutMapping("/{uuid}")
+    public GroupDTO update(@PathVariable UUID uuid, @RequestBody GroupDTO dto) {
+        return writeService.update(uuid, dto);
     }
 
     // DELETE /api/groups/{id}
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        writeService.delete(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> delete(@PathVariable UUID uuid) {
+        writeService.delete(uuid);
         return ResponseEntity.noContent().build();
     }
 }

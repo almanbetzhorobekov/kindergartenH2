@@ -17,6 +17,8 @@ import java.util.UUID;
 @Data
 public class ChildDTO extends Person {
 
+    private UUID uuid;
+
     private List<UUID> parentsId;
 
     private UUID groupId;

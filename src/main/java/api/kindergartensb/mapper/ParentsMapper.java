@@ -6,9 +6,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {
-        AddressMapper.class})
+        AddressMapper.class,
+        ChildMapper.class
+})
 public interface ParentsMapper {
-
+    @Mapping(target = "childrenId", ignore = true)
     @Mapping(source = "address", target = "addressDTO")
     ParentsDTO toDto(Parents parent);
 

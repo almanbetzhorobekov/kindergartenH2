@@ -2,9 +2,11 @@ package api.kindergartensb.service.ServiceIml;
 
 import api.kindergartensb.dto.AddressDTO;
 import api.kindergartensb.dto.ParentsDTO;
+import api.kindergartensb.entity.Child;
 import api.kindergartensb.entity.Parents;
 import api.kindergartensb.mapper.AddressMapper;
 import api.kindergartensb.mapper.ParentsMapper;
+import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.repository.ParentsRepository;
 import api.kindergartensb.service.ParentsReadService;
 import api.kindergartensb.service.ParentsWriteService;
@@ -28,24 +30,27 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
     private final ParentsRepository parentsRepository;
     private final AddressMapper addressMapper;
 
-    public ParentsServiceImpl(ParentsMapper parentsMapper, ParentsRepository parentsRepository, AddressMapper addressMapper) {
+    private final ChildRepository childRepository;
+
+    public ParentsServiceImpl(ParentsMapper parentsMapper, ParentsRepository parentsRepository, ChildRepository childRepository, AddressMapper addressMapper) {
         this.parentsMapper = parentsMapper;
         this.parentsRepository = parentsRepository;
         this.addressMapper = addressMapper;
+        this.childRepository = childRepository;
     }
 
     /**
      * Retrieves a {@link ParentsDTO} by its unique identifier.
      *
-     * @param id the UUID of the parent to retrieve
+     * @param uuid the UUID of the parent to retrieve
      * @return the corresponding {@link ParentsDTO}
      * @throws RuntimeException if no parent with the specified ID exists
      */
     @Override
-    public ParentsDTO getParentsById(UUID id) {
-        return parentsRepository.findById(id)
+    public ParentsDTO getParentsById(UUID uuid) {
+        return parentsRepository.findById(uuid)
                 .map(parentsMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Parent not found by " + id));
+                .orElseThrow(() -> new RuntimeException("Parent not found by " + uuid));
     }
     /**
      * Retrieves the {@link AddressDTO} associated with the given parent's ID.
@@ -86,22 +91,28 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
      */
     @Override
     public ParentsDTO create(ParentsDTO parentsDTO) {
-        Parents savedParents = parentsRepository.save(parentsMapper
-                .toEntity(parentsDTO));
+
+        Parents parents = parentsMapper.toEntity(parentsDTO);
+
+        if (parentsDTO.getChildrenId() != null && !parentsDTO.getChildrenId().isEmpty()) {
+            List<Child> children = childRepository.findAllById(parentsDTO.getChildrenId());
+            parents.setChildren(children);
+        }
+        Parents savedParents = parentsRepository.save(parents);
         return parentsMapper.toDto(savedParents);
     }
     /**
      * Updates an existing {@link Parents} entity with the data from the provided {@link ParentsDTO}.
      *
-     * @param id         the UUID of the parent to update
+     * @param uuid         the UUID of the parent to update
      * @param parentsDTO the DTO containing updated parent information
      * @return the updated {@link ParentsDTO}
      * @throws RuntimeException if no parent with the specified ID exists
      */
     @Override
-    public ParentsDTO update(UUID id, ParentsDTO parentsDTO) {
-        Parents existingParent = parentsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Parent not found by " + id));
+    public ParentsDTO update(UUID uuid, ParentsDTO parentsDTO) {
+        Parents existingParent = parentsRepository.findById(uuid)
+                .orElseThrow(() -> new RuntimeException("Parent not found by " + uuid));
 
         existingParent.setFirstName(parentsDTO.getFirstName());
         existingParent.setLastName(parentsDTO.getLastName());
@@ -113,14 +124,14 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
     /**
      * Deletes a parent identified by the given UUID.
      *
-     * @param id the UUID of the parent to delete
+     * @param uuid the UUID of the parent to delete
      * @throws RuntimeException if no parent with the specified ID exists
      */
     @Override
-    public void delete(UUID id) {
-        if (!parentsRepository.existsById(id)) {
-            throw new RuntimeException("Parent not found by " + id);
+    public void delete(UUID uuid) {
+        if (!parentsRepository.existsById(uuid)) {
+            throw new RuntimeException("Parent not found by " + uuid);
         }
-        parentsRepository.deleteById(id);
+        parentsRepository.deleteById(uuid);
     }
 }

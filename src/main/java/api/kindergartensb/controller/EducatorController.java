@@ -21,10 +21,15 @@ public class EducatorController {
         this.educatorReadService = educatorReadService;
         this.educatorWriteService = educatorWriteService;
     }
+    @GetMapping
+    public List<EducatorDTO> getAll() {
+        return educatorReadService.getAll();
+    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EducatorDTO> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(educatorReadService.getEducatorById(id));
+
+    @GetMapping("/{uuid}")
+    public ResponseEntity<EducatorDTO> getById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(educatorReadService.getEducatorById(uuid));
     }
 
     @PostMapping
@@ -33,9 +38,9 @@ public class EducatorController {
     } //status code 200(ok)
 
 
-    @GetMapping("/groups/{id}")
-    public ResponseEntity<GroupDTO> getGroupById(@PathVariable UUID id) {
-        return educatorReadService.getGroupById(id)
+    @GetMapping("/groups/{uuid}")
+    public ResponseEntity<GroupDTO> getGroupById(@PathVariable UUID uuid) {
+        return educatorReadService.getGroupById(uuid)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -51,9 +56,9 @@ public class EducatorController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@RequestBody UUID id) {
-        educatorWriteService.delete(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> delete(@RequestBody UUID uuid) {
+        educatorWriteService.delete(uuid);
         return ResponseEntity.noContent().build();//204
     }
 

@@ -11,6 +11,7 @@ import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.EducatorReadService;
 import api.kindergartensb.service.EducatorWriteService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,15 +41,15 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     /**
      * Retrieves an {@link EducatorDTO} by its unique identifier.
      *
-     * @param id the UUID of the educator to retrieve
+     * @param uuid the UUID of the educator to retrieve
      * @return the corresponding {@link EducatorDTO}
      * @throws NoSuchElementException if no educator with the specified ID exists
      */
     @Override
-    public EducatorDTO getEducatorById(UUID id) {
-        return educatorRepository.findById(id)
+    public EducatorDTO getEducatorById(UUID uuid) {
+        return educatorRepository.findById(uuid)
                 .map(educatorMapper::toDto)
-                .orElseThrow(() -> new NoSuchElementException("No educator found with id: " + id));
+                .orElseThrow(() -> new NoSuchElementException("No educator found with id: " + uuid));
     }
     /**
      * Retrieves a {@link GroupDTO} by its unique identifier, if it exists.
@@ -57,8 +58,8 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
      * @return an {@link Optional} containing the {@link GroupDTO} if found, or empty if not found
      */
     @Override
-    public Optional<GroupDTO> getGroupById(UUID id) {
-        return groupRepository.findById(id)
+    public Optional<GroupDTO> getGroupById(UUID uuid) {
+        return groupRepository.findById(uuid)
                 .map(groupMapper::toDto);
     }
     /**
@@ -77,6 +78,15 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     public AddressDTO getAddress() {
         return null;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<EducatorDTO> getAll() {
+        return educatorMapper.toDtoList(
+                educatorRepository.findAll()
+        );
+    }
+
     /**
      * Creates and saves a new {@link Educator} entity from the provided {@link EducatorDTO}.
      *
@@ -92,28 +102,28 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     /**
      * Deletes an {@link Educator} entity by its unique identifier.
      *
-     * @param id the UUID of the educator to be deleted
+     * @param uuid the UUID of the educator to be deleted
      * @throws NoSuchElementException if no educator with the specified ID exists
      */
     @Override
-    public void delete(UUID id) {
-        if (!educatorRepository.existsById(id)) {
-            throw new NoSuchElementException("Educator not found with id " + id);
+    public void delete(UUID uuid) {
+        if (!educatorRepository.existsById(uuid)) {
+            throw new NoSuchElementException("Educator not found with id " + uuid);
         }
-        educatorRepository.deleteById(id);
+        educatorRepository.deleteById(uuid);
     }
     /**
      * Updates an existing {@link Educator} entity's basic information using the provided {@link EducatorDTO}.
      *
-     * @param id the UUID of the educator to update
+     * @param uuid the UUID of the educator to update
      * @param educatorDTO the {@link EducatorDTO} containing updated data
      * @return the updated {@link EducatorDTO} after saving
      * @throws NoSuchElementException if no educator with the specified ID exists
      */
     @Override
-    public EducatorDTO update(UUID id, EducatorDTO educatorDTO) {
-        Educator existing = educatorRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Educator not found with id " + id));
+    public EducatorDTO update(UUID uuid, EducatorDTO educatorDTO) {
+        Educator existing = educatorRepository.findById(uuid)
+                .orElseThrow(() -> new NoSuchElementException("Educator not found with id " + uuid));
 
         existing.setFirstName(educatorDTO.getFirstName());
         existing.setLastName(educatorDTO.getLastName());

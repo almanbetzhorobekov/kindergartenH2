@@ -1,9 +1,7 @@
 package api.kindergartensb.controller;
-
-import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.dto.KindergartenDTO;
 
-
+import api.kindergartensb.dto.KindergartenMiniDto;
 import api.kindergartensb.service.KindergartenReadService;
 import api.kindergartensb.service.KindergartenWriteService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/kindergartens")
 @RequiredArgsConstructor
@@ -22,9 +21,9 @@ public class KindergartenController {
     private final KindergartenReadService readService;
     private final KindergartenWriteService writeService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<KindergartenDTO> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(readService.getById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<KindergartenDTO> getById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(readService.getById(uuid));
     }
 
     @GetMapping
@@ -32,20 +31,24 @@ public class KindergartenController {
         return readService.getAll();
     }
 
+    @GetMapping("/mini")
+    public List<KindergartenMiniDto> getAllMiniInfo() {
+        return readService.getAllMiniDto();
+    }
 
     @PostMapping
     public ResponseEntity<KindergartenDTO> create(@RequestBody KindergartenDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
     }
 
-    @PutMapping("/{id}")
-    public KindergartenDTO update(@PathVariable UUID id, @RequestBody KindergartenDTO dto) {
-        return writeService.update(id, dto);
+    @PutMapping("/{uuid}")
+    public KindergartenDTO update(@PathVariable UUID uuid, @RequestBody KindergartenDTO dto) {
+        return writeService.update(uuid, dto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        writeService.delete(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> delete(@PathVariable UUID uuid) {
+        writeService.delete(uuid);
         return ResponseEntity.noContent().build();
     }
 }

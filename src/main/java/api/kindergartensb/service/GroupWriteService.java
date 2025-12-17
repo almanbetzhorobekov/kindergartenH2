@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface GroupWriteService {
 
     GroupDTO create(GroupDTO dto);
-    GroupDTO update(UUID id, GroupDTO dto);
-    void delete(UUID id);
+    GroupDTO update(UUID uuid, GroupDTO dto);
+    void delete(UUID uuid);
 
 }

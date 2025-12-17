@@ -20,7 +20,7 @@ public class Group {//имя Group резервирован в SQL
 
     private String groupName;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "group")
     private List<Child> childList;
 
     @ManyToOne

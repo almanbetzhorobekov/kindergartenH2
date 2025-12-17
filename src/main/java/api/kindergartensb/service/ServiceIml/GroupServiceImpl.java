@@ -32,13 +32,13 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
     /**
      * Retrieves a {@link GroupDTO} by its unique identifier.
      *
-     * @param id the UUID of the group to retrieve
+     * @param uuid the UUID of the group to retrieve
      * @return the corresponding {@link GroupDTO}
      * @throws EntityNotFoundException if no group with the specified ID exists
      */
     @Override
-    public GroupDTO getById(UUID id) {
-        return groupRepository.findById(id)
+    public GroupDTO getById(UUID uuid) {
+        return groupRepository.findById(uuid)
                 .map(groupMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Group not found"));
     }
@@ -80,15 +80,15 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
     /**
      * Updates the name of an existing group identified by the given ID.
      *
-     * @param id  the UUID of the group to update
+     * @param uuid  the UUID of the group to update
      * @param dto the {@link GroupDTO} containing the updated group information
      * @return the updated {@link GroupDTO}
      * @throws EntityNotFoundException if no group with the specified ID exists
      */
     @Override
-    public GroupDTO update(UUID id, GroupDTO dto) {
-        Group groupExisting = groupRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Group not found by " + id));
+    public GroupDTO update(UUID uuid, GroupDTO dto) {
+        Group groupExisting = groupRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Group not found by " + uuid));
 
         groupExisting.setGroupName(dto.getGroupName());
         return groupMapper.toDto(groupRepository.save(groupExisting));
@@ -96,10 +96,10 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
     /**
      * Deletes a group identified by the given UUID.
      *
-     * @param id the UUID of the group to delete
+     * @param uuid the UUID of the group to delete
      */
     @Override
-    public void delete(UUID id) {
-        groupRepository.deleteById(id);
+    public void delete(UUID uuid) {
+        groupRepository.deleteById(uuid);
     }
 }

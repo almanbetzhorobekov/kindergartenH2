@@ -26,4 +26,7 @@ public class Child extends Person {
     @JoinColumn(name = "group_uuid")
     private Group group;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean active = true;
+
 }

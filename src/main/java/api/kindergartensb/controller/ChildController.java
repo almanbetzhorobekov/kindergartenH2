@@ -4,7 +4,11 @@ import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;
 import api.kindergartensb.service.ChildReadService;
 import api.kindergartensb.service.ChildWriteService;
+import api.kindergartensb.service.ServiceIml.ChildServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,17 +30,21 @@ public class ChildController {
     /**
      * Returns a child by ID.
      *
-     * @param id the UUID of the child
+     * @param uuid the UUID of the child
      * @return the child data
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<ChildDTO> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(childReadService.getById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<ChildDTO> getById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(childReadService.getById(uuid));
     }
 
     @GetMapping
-    public ResponseEntity<List<ChildDTO>> getAll() {
-        return ResponseEntity.ok(childReadService.getAllChildren());
+    public ResponseEntity<Page<ChildDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(childReadService.getAllChildren(pageable));
     }
 
     @GetMapping("/by-parent/{parentId}")
@@ -44,16 +52,16 @@ public class ChildController {
         return ResponseEntity.ok(childReadService.getChildrenByParentId(parentId));
     }
 
-    @GetMapping("/parents-by-child/{id}")
-    public ResponseEntity<?> getParentsByChildId(@PathVariable UUID id) {
-        if (!childReadService.isExist(id)) {
+    @GetMapping("/parents-by-child/{uuid}")
+    public ResponseEntity<?> getParentsByChildId(@PathVariable UUID uuid) {
+        if (!childReadService.isExist(uuid)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("message", "Child not found by id " + id));
+                    .body(Map.of("message", "Child not found by id " + uuid));
         }
-        List<ParentsDTO> parents = childReadService.getParents(id);
+        List<ParentsDTO> parents = childReadService.getParents(uuid);
         if (parents.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("message", "Parent not found by child id " + id));
+                    .body(Map.of("message", "Parent not found by child id " + uuid));
         }
         return ResponseEntity.ok(parents);
     }
@@ -64,14 +72,31 @@ public class ChildController {
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ChildDTO> updateChild(@PathVariable UUID id, @RequestBody ChildDTO dto) {
-        return ResponseEntity.ok(childWriteService.updateChild(id, dto));
+    @PutMapping("/{uuid}/change-group/{groupId}")
+    public ResponseEntity<ChildDTO> changeGroup(
+            @PathVariable("uuid") UUID childId,
+            @PathVariable("groupId") UUID newGroupID
+    ) {
+        ChildDTO updateChild = childWriteService.changeGroup(childId, newGroupID);
+        return ResponseEntity.ok(updateChild);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        childWriteService.deleteChild(id);
+    @PutMapping("/{uuid}/deactivate")
+    public ResponseEntity<Void> deactivateChild(@PathVariable UUID uuid) {
+        childWriteService.deactivateChild(uuid);
+        return ResponseEntity.noContent().build(); // 204
+    }
+
+    @PutMapping("/{uuid}")
+    public ResponseEntity<ChildDTO> updateChild(
+            @PathVariable UUID uuid,
+            @RequestBody ChildDTO dto) {
+        return ResponseEntity.ok(childWriteService.updateChild(uuid, dto));
+    }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> delete(@PathVariable UUID uuid) {
+        childWriteService.deleteChild(uuid);
         return ResponseEntity.noContent().build(); // 204
     }
 

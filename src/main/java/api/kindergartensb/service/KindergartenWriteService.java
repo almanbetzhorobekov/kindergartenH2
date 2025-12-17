@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface KindergartenWriteService {
 
     KindergartenDTO create(KindergartenDTO dto);
-    void delete(UUID id);
+    void delete(UUID uuid);
     KindergartenDTO update(UUID id, KindergartenDTO dto);
 
 }

@@ -10,9 +10,10 @@ import java.util.UUID;
 
 public interface EducatorReadService {
 
-    EducatorDTO getEducatorById(UUID id);
-    Optional<GroupDTO> getGroupById(UUID id);
+    EducatorDTO getEducatorById(UUID uuid);
+    Optional<GroupDTO> getGroupById(UUID uuid);
     List<GroupDTO> getGroups();
     AddressDTO getAddress();
+    List<EducatorDTO> getAll();
 
 }

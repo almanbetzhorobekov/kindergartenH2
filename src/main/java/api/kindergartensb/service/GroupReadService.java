@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface GroupReadService {
-    GroupDTO getById(UUID id);
+    GroupDTO getById(UUID uuid);
     List<GroupDTO> getAll();
     List<GroupDTO> getGroupsByKindergartenId(UUID kindergartenId);
 }

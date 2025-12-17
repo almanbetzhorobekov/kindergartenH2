@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface ParentsReadService {
 
-    ParentsDTO getParentsById(UUID id);
+    ParentsDTO getParentsById(UUID uuid);
     AddressDTO getAddressByParentId(UUID parentId);
     List<ParentsDTO> getAllParents();
     // List<ParentsDTO> getParentsByChildId(UUID childId);

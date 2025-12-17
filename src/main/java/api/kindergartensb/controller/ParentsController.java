@@ -27,10 +27,14 @@ public class ParentsController {
     public List<ChildDTO> getAllChildren(){
         return null;
     }
+    @GetMapping()
+    public List<ParentsDTO> getAll() {
+        return parentsReadService.getAllParents();
+    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ParentsDTO> getParentById(@PathVariable UUID id) {
-        ParentsDTO parent = parentsReadService.getParentsById(id);
+    @GetMapping("/{uuid}")
+    public ResponseEntity<ParentsDTO> getParentById(@PathVariable UUID uuid) {
+        ParentsDTO parent = parentsReadService.getParentsById(uuid);
         return ResponseEntity.ok(parent);
     }
 
@@ -40,9 +44,9 @@ public class ParentsController {
         return ResponseEntity.ok(parents);
     }
 */
-    @GetMapping("/address/{id}")
-    public ResponseEntity<AddressDTO> getAddressByParentId(@PathVariable UUID id) {
-        AddressDTO address = parentsReadService.getAddressByParentId(id);
+    @GetMapping("/address/{uuid}")
+    public ResponseEntity<AddressDTO> getAddressByParentId(@PathVariable UUID uuid) {
+        AddressDTO address = parentsReadService.getAddressByParentId(uuid);
         return ResponseEntity.ok(address);
     }
 
@@ -52,15 +56,15 @@ public class ParentsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ParentsDTO> update(@PathVariable UUID id, @RequestBody ParentsDTO parentsDTO) {
-        ParentsDTO updated = parentsWriteService.update(id, parentsDTO);
+    @PutMapping("/{uuid}")
+    public ResponseEntity<ParentsDTO> update(@PathVariable UUID uuid, @RequestBody ParentsDTO parentsDTO) {
+        ParentsDTO updated = parentsWriteService.update(uuid, parentsDTO);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        parentsWriteService.delete(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> delete(@PathVariable UUID uuid) {
+        parentsWriteService.delete(uuid);
         return ResponseEntity.noContent().build();
     }
 }

@@ -7,6 +7,6 @@ import java.util.UUID;
 public interface ParentsWriteService {
 
     ParentsDTO create(ParentsDTO parentsDTO);
-    ParentsDTO update(UUID id, ParentsDTO parentsDTO);
-    void delete(UUID id);
+    ParentsDTO update(UUID uuid, ParentsDTO parentsDTO);
+    void delete(UUID uuid);
 }

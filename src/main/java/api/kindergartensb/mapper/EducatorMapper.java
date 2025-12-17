@@ -23,6 +23,8 @@ public interface EducatorMapper {
     @Mapping(source = "groupIds", target = "groups", qualifiedByName = "mapIdsToGroupList")
     @Mapping(source = "addressDTO", target = "address")
     Educator toEntity(EducatorDTO educatorDTO);
+    List<EducatorDTO> toDtoList(List<Educator> educators);
+    List<Educator> toEntityList(List<EducatorDTO> dtos);
 
     @Named("mapGroupListToIds")
     default List<UUID> mapGroupListToIds(List<Group> groups) {

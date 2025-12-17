@@ -11,10 +11,9 @@ import org.mapstruct.Mapping;
         EducatorMapper.class})//, builder = @Builder(disableBuilder = false
 public interface KindergartenMapper {
 
-    @Mapping(source = "address", target = "addressDTO")
+    @Mapping(source = "address", target = "address")
     KindergartenDTO toDto(Kindergarten kindergarten);
 
-    @Mapping(source = "addressDTO", target = "address")
     @Mapping(target = "groups", ignore = true)//При меппинге он может оставить в пустую, и можно добавить потом
     @Mapping(target = "educators", ignore = true)
     Kindergarten toEntity(KindergartenDTO kindergartenDTO);

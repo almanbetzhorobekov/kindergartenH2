@@ -22,7 +22,7 @@ import java.util.UUID;
 public class ParentsDTO extends Person {
 
  //
-    //   private UUID uuid;
+    private UUID uuid;
 
     @NotNull(message = "Can not be null please add address")
     private AddressDTO addressDTO;
