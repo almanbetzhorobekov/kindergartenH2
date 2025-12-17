@@ -10,11 +10,12 @@ import api.kindergartensb.repository.ChildRepository;
 import api.kindergartensb.repository.ParentsRepository;
 import api.kindergartensb.service.ParentsReadService;
 import api.kindergartensb.service.ParentsWriteService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Service implementation for managing {@link Parents} entities.
@@ -74,14 +75,11 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
                         .anyMatch(child -> getChildId));
     }
 */
-    @Override
-    public List<ParentsDTO> getAllParents() {
-        List<Parents> parentsList = parentsRepository.findAll();
-        return parentsList.stream()
-                .map(parentsMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
+   @Override
+   public Page<ParentsDTO> getAllParents(Pageable pageable) {
+       return parentsRepository.findAll(pageable)
+               .map(parentsMapper::toDto);
+   }
 
     /**
      * Creates and saves a new {@link Parents} entity from the provided {@link ParentsDTO}.

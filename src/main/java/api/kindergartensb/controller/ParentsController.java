@@ -4,6 +4,8 @@ import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;
 import api.kindergartensb.service.ParentsReadService;
 import api.kindergartensb.service.ParentsWriteService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +29,11 @@ public class ParentsController {
     public List<ChildDTO> getAllChildren(){
         return null;
     }
+
     @GetMapping()
-    public List<ParentsDTO> getAll() {
-        return parentsReadService.getAllParents();
+    public ResponseEntity<Page<ParentsDTO>> getAll(Pageable pageable) {
+
+        return ResponseEntity.ok(parentsReadService.getAllParents(pageable));
     }
 
     @GetMapping("/{uuid}")

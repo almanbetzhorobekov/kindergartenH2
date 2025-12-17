@@ -59,7 +59,8 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
      */
     @Override
     public Page<ChildDTO> getAllChildren(Pageable pageable) {
-        return childRepository.findAllByActiveTrue(pageable)
+        return childRepository
+                .findAllByActiveTrue(pageable)
                 .map(childMapper::toDto);
     }
     /**
@@ -100,11 +101,13 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
     @Override
     public ChildDTO create(ChildDTO childDTO) {
         int age = childDTO.getAge();
-        if (age < 1 || age > 7) {
-            throw new IllegalArgumentException("Age must be between 1 and 7");
+        if (age < 1 || age > 6) {
+            throw new IllegalArgumentException("Age must be between 1 and 6");
         }
-        final Child built = Child.builder().uuid(UUID.randomUUID()).age(null).build();
+
         Child entity = childMapper.toEntity(childDTO);
+        entity.setActive(true);
+
         Child saved = childRepository.save(entity);
         return childMapper.toDto(saved);
     }

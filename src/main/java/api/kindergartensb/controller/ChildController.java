@@ -4,10 +4,8 @@ import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;
 import api.kindergartensb.service.ChildReadService;
 import api.kindergartensb.service.ChildWriteService;
-import api.kindergartensb.service.ServiceIml.ChildServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,11 +37,7 @@ public class ChildController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ChildDTO>> getAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
+    public ResponseEntity<Page<ChildDTO>> getAll(Pageable pageable) {
         return ResponseEntity.ok(childReadService.getAllChildren(pageable));
     }
 

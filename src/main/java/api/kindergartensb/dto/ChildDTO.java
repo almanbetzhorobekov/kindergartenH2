@@ -16,7 +16,6 @@ import java.util.UUID;
 @SuperBuilder
 @Data
 public class ChildDTO extends Person {
-
     private UUID uuid;
 
     private List<UUID> parentsId;
