@@ -12,6 +12,7 @@ public interface ChildReadService {
 
     ChildDTO getById(UUID uuid);
     Page<ChildDTO> getAllChildren(Pageable pageable);
+    List<ChildDTO> getAllInactive();
     List<ParentsDTO> getParents(UUID uuid);
     List<ChildDTO> getChildrenByParentId(UUID parentId);
     boolean isExist(UUID uuid);

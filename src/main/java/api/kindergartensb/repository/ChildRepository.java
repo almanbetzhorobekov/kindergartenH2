@@ -13,5 +13,6 @@ import java.util.UUID;
 public interface ChildRepository extends JpaRepository<Child, UUID> {
     List<Child> findByParentsUuid(UUID parentId);
     Page<Child> findAllByActiveTrue(Pageable pageable);
+    List<Child> findAllByActiveFalse();
 
 }

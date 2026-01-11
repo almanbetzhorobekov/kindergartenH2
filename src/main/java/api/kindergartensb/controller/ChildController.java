@@ -7,6 +7,7 @@ import api.kindergartensb.service.ChildWriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,11 @@ public class ChildController {
     @GetMapping
     public ResponseEntity<Page<ChildDTO>> getAll(Pageable pageable) {
         return ResponseEntity.ok(childReadService.getAllChildren(pageable));
+    }
+
+    @GetMapping("/inactive")
+    public ResponseEntity<List<ChildDTO>> getAllInactive() {
+        return ResponseEntity.ok(childReadService.getAllInactive());
     }
 
     @GetMapping("/by-parent/{parentId}")

@@ -63,6 +63,16 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
                 .findAllByActiveTrue(pageable)
                 .map(childMapper::toDto);
     }
+
+    @Override
+    public List<ChildDTO> getAllInactive() {
+        return childRepository
+                .findAllByActiveFalse()
+                .stream()
+                .map(childMapper::toDto)
+                .toList();
+    }
+
     /**
      * Retrieves the list of {@link ParentsDTO} associated with a child by the given child ID.
      *
@@ -119,7 +129,7 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
      */
     @Override
     public void deleteChild(UUID uuid) {
-        deactivateChild(uuid);
+        childRepository.deleteById(uuid);
     }
     /**
      * Updates the basic information of an existing {@link Child} entity with data from the provided {@link ChildDTO}.
@@ -143,10 +153,13 @@ public class ChildServiceImpl implements ChildReadService, ChildWriteService {
         }
         Child existing = childRepository.findById(uuid)
                 .orElseThrow(() -> new NoSuchElementException("Child not found with id: " + uuid));
+        Group group = groupRepository.findById(dto.getGroupId())
+                .orElseThrow(() -> new NoSuchElementException("No group is found"));
 
         existing.setFirstName(dto.getFirstName());
         existing.setLastName(dto.getLastName());
         existing.setBirthday(dto.getBirthday());
+        existing.setGroup(group);
 
         return childMapper.toDto(childRepository.save(existing));
     }
