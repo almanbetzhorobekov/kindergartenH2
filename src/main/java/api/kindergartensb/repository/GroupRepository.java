@@ -12,4 +12,6 @@ import java.util.UUID;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, UUID> {
     List<Group> findByKindergartenUuid(UUID kindergartenId);
+    boolean existsByGroupNameAndKindergartenUuid(String groupName, UUID kindergartenId);
+
 }

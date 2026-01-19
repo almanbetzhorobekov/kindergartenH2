@@ -25,4 +25,6 @@ public class Address {
 
     private String plz;
 
+    private String city;
+
 }

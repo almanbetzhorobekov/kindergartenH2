@@ -11,8 +11,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "groups")
-public class Group {//имя Group резервирован в SQL
+@Table(name = "groups",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"group_name", "kindergarten_id"}))
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

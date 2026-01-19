@@ -13,5 +13,6 @@ public class AddressDTO {
     private String plz;
     private String street;
     private String houseNumber;
+    private String city;
     
 }

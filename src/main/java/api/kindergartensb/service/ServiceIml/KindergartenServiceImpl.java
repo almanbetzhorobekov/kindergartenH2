@@ -108,7 +108,7 @@ public class KindergartenServiceImpl implements KindergartenReadService, Kinderg
     /**
      * Updates the name of an existing kindergarten identified by the given ID.
      *
-     * @param id  the UUID of the kindergarten to update
+     * @param uuid  the UUID of the kindergarten to update
      * @param dto the {@link KindergartenDTO} containing the updated kindergarten information
      * @return the updated {@link KindergartenDTO}
      * @throws NoSuchElementException if no kindergarten with the specified ID exists

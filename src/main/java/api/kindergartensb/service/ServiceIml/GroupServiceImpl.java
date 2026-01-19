@@ -73,6 +73,16 @@ public class GroupServiceImpl implements GroupReadService, GroupWriteService {
      */
     @Override
     public GroupDTO create(GroupDTO dto) {
+        UUID kindergartenId = dto.getKindergartenId();
+        String groupName = dto.getGroupName();
+
+        boolean exists = groupRepository.existsByGroupNameAndKindergartenUuid(groupName, kindergartenId);
+        if (exists) {
+            throw new IllegalArgumentException(
+                    "Es gibt schon eine Gruppe mit diesem Namen " + groupName
+            );
+        }
+
         Group saved = groupRepository.save(groupMapper.toEntity(dto));
         return groupMapper.toDto(saved);
     }
