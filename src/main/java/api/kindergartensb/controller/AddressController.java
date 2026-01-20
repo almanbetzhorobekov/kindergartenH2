@@ -12,7 +12,7 @@ import java.util.Map;
 public class AddressController {
 
     private final String DHL_API_URL = "https://autocomplete2.postdirekt.de/autocomplete2/search/de/cities";
-    private final String DHL_API_KEY = "DEIN_API_KEY_HIER";
+    private final String DHL_API_KEY = "";
 
     @GetMapping("/cities")
     public ResponseEntity<?> getCities(

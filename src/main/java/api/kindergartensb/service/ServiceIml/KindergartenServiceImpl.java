@@ -69,6 +69,7 @@ public class KindergartenServiceImpl implements KindergartenReadService, Kinderg
                             kindergarten.getKindergartenName(),
                             address != null ? address.getPlz() : null,
                             address != null ? address.getStreet() : null,
+                            address != null ? address.getCity() : null,
                             address != null ? address.getHouseNumber() : null
                     );
                     miniDtos.add(dto);
@@ -113,12 +114,26 @@ public class KindergartenServiceImpl implements KindergartenReadService, Kinderg
      * @return the updated {@link KindergartenDTO}
      * @throws NoSuchElementException if no kindergarten with the specified ID exists
      */
+    @Transactional
     @Override
     public KindergartenDTO update(UUID uuid, KindergartenDTO dto) {
         Kindergarten entityExisting = kindergartenRepository.findById(uuid)
-                        .orElseThrow(() -> new NoSuchElementException("Kindergarten not found with id: " + uuid));
-        entityExisting.setKindergartenName(dto.getKindergartenName());
-        return kindergartenMapper.toDto(kindergartenRepository.save(entityExisting));
+                .orElseThrow(() -> new NoSuchElementException("Kindergarten not found with id: " + uuid));
 
+        entityExisting.setKindergartenName(dto.getKindergartenName());
+
+        if (entityExisting.getAddress() == null) {
+            entityExisting.setAddress(new Address());
+        }
+
+        Address addr = entityExisting.getAddress();
+        if (dto.getAddress() != null) {
+            addr.setStreet(dto.getAddress().getStreet());
+            addr.setHouseNumber(dto.getAddress().getHouseNumber());
+            addr.setPlz(dto.getAddress().getPlz());
+            addr.setCity(dto.getAddress().getCity());
+        }
+
+        return kindergartenMapper.toDto(kindergartenRepository.save(entityExisting));
     }
 }

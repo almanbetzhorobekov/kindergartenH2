@@ -20,13 +20,12 @@ public class GroupController {
     private final GroupReadService readService;
     private final GroupWriteService writeService;
 
-    // GET /api/groups/{id}
+
     @GetMapping("/{uuid}")
     public ResponseEntity<GroupDTO> getById(@PathVariable UUID uuid) {
         return ResponseEntity.ok(readService.getById(uuid));
     }
 
-    // GET /api/groups
     @GetMapping
     public List<GroupDTO> getAll() {
         return readService.getAll();
@@ -36,20 +35,17 @@ public class GroupController {
     public List<GroupDTO> getGroupsByKindergartenId(@PathVariable UUID kindergartenId) {
         return readService.getGroupsByKindergartenId(kindergartenId);
     }
-    
-    // POST /api/groups
+
     @PostMapping
     public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
     }
 
-    // PUT /api/groups/{id}
     @PutMapping("/{uuid}")
     public GroupDTO update(@PathVariable UUID uuid, @RequestBody GroupDTO dto) {
         return writeService.update(uuid, dto);
     }
 
-    // DELETE /api/groups/{id}
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> delete(@PathVariable UUID uuid) {
         writeService.delete(uuid);
