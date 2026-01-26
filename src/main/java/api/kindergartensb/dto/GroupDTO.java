@@ -2,6 +2,7 @@ package api.kindergartensb.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,8 +11,8 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Transactional
 public class GroupDTO {
-    //@JsonProperty("id")
     private UUID uuid;
 
     @NotNull(message = "Group name can not be Null")

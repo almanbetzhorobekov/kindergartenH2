@@ -1,7 +1,10 @@
 package api.kindergartensb.service.ServiceIml;
 
 import api.kindergartensb.dto.AddressDTO;
+import api.kindergartensb.dto.ChildMiniDTO;
 import api.kindergartensb.dto.ParentsDTO;
+import api.kindergartensb.dto.ParentsMiniDTO;
+import api.kindergartensb.entity.Address;
 import api.kindergartensb.entity.Child;
 import api.kindergartensb.entity.Parents;
 import api.kindergartensb.mapper.AddressMapper;
@@ -13,6 +16,7 @@ import api.kindergartensb.service.ParentsWriteService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +29,7 @@ import java.util.UUID;
  * </p>
  */
 @Service
+@Transactional
 public class ParentsServiceImpl implements ParentsReadService, ParentsWriteService {
 
     private final ParentsMapper parentsMapper;
@@ -76,10 +81,27 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
     }
 */
    @Override
-   public Page<ParentsDTO> getAllParents(Pageable pageable) {
+   public Page<ParentsMiniDTO> getAllParents(Pageable pageable) {
        return parentsRepository.findAll(pageable)
-               .map(parentsMapper::toDto);
+               .map(parent -> new ParentsMiniDTO(
+                       parent.getUuid(),
+                       parent.getFirstName(),
+                       parent.getLastName(),
+                       parent.getPhoneNumber(),
+                       parent.getAddress() != null ? addressMapper.toDto(parent.getAddress()) : null,
+
+                       parent.getChildren().stream()
+                               .map(child -> new ChildMiniDTO(child.getUuid(), child.getFirstName(), child.getLastName()))
+                               .toList()
+               ));
    }
+
+    @Override
+    public Page<ParentsDTO> getAllParent(Pageable pageable) {
+        return parentsRepository.findAll(pageable)
+                .map(parentsMapper::toDto);
+
+    }
 
     /**
      * Creates and saves a new {@link Parents} entity from the provided {@link ParentsDTO}.
@@ -91,6 +113,11 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
     public ParentsDTO create(ParentsDTO parentsDTO) {
 
         Parents parents = parentsMapper.toEntity(parentsDTO);
+
+        if (parentsDTO.getAddressDTO() != null) {
+            Address address = addressMapper.toEntity(parentsDTO.getAddressDTO());
+            parents.setAddress(address);
+        }
 
         if (parentsDTO.getChildrenId() != null && !parentsDTO.getChildrenId().isEmpty()) {
             List<Child> children = childRepository.findAllById(parentsDTO.getChildrenId());

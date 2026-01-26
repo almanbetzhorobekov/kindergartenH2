@@ -2,6 +2,7 @@ package api.kindergartensb.controller;
 import api.kindergartensb.dto.AddressDTO;
 import api.kindergartensb.dto.ChildDTO;
 import api.kindergartensb.dto.ParentsDTO;
+import api.kindergartensb.dto.ParentsMiniDTO;
 import api.kindergartensb.service.ParentsReadService;
 import api.kindergartensb.service.ParentsWriteService;
 import org.springframework.data.domain.Page;
@@ -30,10 +31,15 @@ public class ParentsController {
         return null;
     }
 
-    @GetMapping()
-    public ResponseEntity<Page<ParentsDTO>> getAll(Pageable pageable) {
+    @GetMapping("/mini")
+    public ResponseEntity<Page<ParentsMiniDTO>> getAllMiniInfo(Pageable pageable) {
 
         return ResponseEntity.ok(parentsReadService.getAllParents(pageable));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ParentsDTO>> getAll(Pageable pageable) {
+        return  ResponseEntity.ok(parentsReadService.getAllParent(pageable));
     }
 
     @GetMapping("/{uuid}")

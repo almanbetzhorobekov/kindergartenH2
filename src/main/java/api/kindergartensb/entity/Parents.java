@@ -23,6 +23,8 @@ public class Parents extends Person {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
+    private String phoneNumber;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "child_parents",

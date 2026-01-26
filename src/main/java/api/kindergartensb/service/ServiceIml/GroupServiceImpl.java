@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class GroupServiceImpl implements GroupReadService, GroupWriteService {
 
     private final GroupRepository groupRepository;

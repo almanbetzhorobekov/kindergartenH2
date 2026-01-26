@@ -29,6 +29,8 @@ public class ParentsDTO extends Person {
 
     private List<UUID> childrenId;
 
+    private List<ChildDTO> children;
+
     private String phoneNumber;
 
     @Override
