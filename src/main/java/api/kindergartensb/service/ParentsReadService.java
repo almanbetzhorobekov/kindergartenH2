@@ -13,6 +13,5 @@ public interface ParentsReadService {
     ParentsDTO getParentsById(UUID uuid);
     AddressDTO getAddressByParentId(UUID parentId);
     Page<ParentsMiniDTO> getAllParents(Pageable pageable);
-
     Page<ParentsDTO> getAllParent(Pageable pageable);
 }

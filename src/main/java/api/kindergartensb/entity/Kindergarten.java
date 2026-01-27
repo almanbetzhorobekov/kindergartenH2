@@ -19,8 +19,7 @@ public class Kindergarten {
 
     private String kindergartenName;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)//CascadeType on sohranit Address vmesto s Kindergarten
-    //orphanremoval on mojet udalit vmesto kindergarten drugie svyazannye objekty
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
 
     @OneToMany(mappedBy = "kindergarten",
@@ -28,7 +27,6 @@ public class Kindergarten {
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     private List<Group> groups;
-//todo ändern BEZIEHUNG!
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Educator> educators;
 

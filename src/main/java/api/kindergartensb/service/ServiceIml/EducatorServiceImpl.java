@@ -2,21 +2,24 @@ package api.kindergartensb.service.ServiceIml;
 
 import api.kindergartensb.dto.AddressDTO;
 import api.kindergartensb.dto.EducatorDTO;
+import api.kindergartensb.dto.EducatorMiniDTO;
 import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.entity.Educator;
+import api.kindergartensb.entity.Group;
+import api.kindergartensb.mapper.AddressMapper;
 import api.kindergartensb.mapper.EducatorMapper;
 import api.kindergartensb.mapper.GroupMapper;
 import api.kindergartensb.repository.EducatorRepository;
 import api.kindergartensb.repository.GroupRepository;
 import api.kindergartensb.service.EducatorReadService;
 import api.kindergartensb.service.EducatorWriteService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,17 +29,18 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     private final EducatorMapper educatorMapper;
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
+    private final AddressMapper addressMapper;
 
 
     public EducatorServiceImpl(EducatorRepository educatorRepository,
                                EducatorMapper educatorMapper,
                                GroupRepository groupRepository,
-                               GroupMapper groupMapper) {
+                               GroupMapper groupMapper, AddressMapper addressMapper) {
         this.educatorRepository = educatorRepository;
         this.educatorMapper = educatorMapper;
         this.groupRepository = groupRepository;
         this.groupMapper = groupMapper;
-
+        this.addressMapper = addressMapper;
     }
     /**
      * Retrieves an {@link EducatorDTO} by its unique identifier.
@@ -54,7 +58,7 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
     /**
      * Retrieves a {@link GroupDTO} by its unique identifier, if it exists.
      *
-     * @param id the UUID of the group to retrieve
+     * @param uuid the UUID of the group to retrieve
      * @return an {@link Optional} containing the {@link GroupDTO} if found, or empty if not found
      */
     @Override
@@ -73,7 +77,7 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
                 .map(groupMapper::toDto)
                 .collect(Collectors.toList());
     }
-//todo
+
     @Override
     public AddressDTO getAddress() {
         return null;
@@ -86,6 +90,20 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
                 educatorRepository.findAll()
         );
     }
+
+    @Override
+    public Page<EducatorMiniDTO> getInfo(Pageable pageable) {
+        return educatorRepository.findAll(pageable)
+                .map(educator -> new EducatorMiniDTO(
+                        educator.getUuid(),
+                        educator.getFirstName(),
+                        educator.getLastName(),
+                        educator.getEmail(),
+                        educator.getPhoneNumber(),
+                        educator.getAddress() != null ? addressMapper.toDto(educator.getAddress()) : null
+                ));
+    }
+
 
     /**
      * Creates and saves a new {@link Educator} entity from the provided {@link EducatorDTO}.

@@ -26,6 +26,6 @@ public class Educator extends Person {
     @OneToMany(mappedBy = "educator")
     private List<Group> groups;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
 }

@@ -1,9 +1,12 @@
 package api.kindergartensb.controller;
 import api.kindergartensb.dto.EducatorDTO;
+import api.kindergartensb.dto.EducatorMiniDTO;
 import api.kindergartensb.dto.GroupDTO;
 import api.kindergartensb.service.EducatorReadService;
 import api.kindergartensb.service.EducatorWriteService;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -24,6 +27,11 @@ public class EducatorController {
     @GetMapping
     public List<EducatorDTO> getAll() {
         return educatorReadService.getAll();
+    }
+
+    @GetMapping("/miniInfo")
+    public ResponseEntity<Page<EducatorMiniDTO>> getMiniInfo(Pageable pageable){
+        return ResponseEntity.ok(educatorReadService.getInfo(pageable));
     }
 
 
