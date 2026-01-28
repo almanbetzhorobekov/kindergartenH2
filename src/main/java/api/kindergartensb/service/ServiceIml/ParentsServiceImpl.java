@@ -142,6 +142,21 @@ public class ParentsServiceImpl implements ParentsReadService, ParentsWriteServi
         existingParent.setFirstName(parentsDTO.getFirstName());
         existingParent.setLastName(parentsDTO.getLastName());
         existingParent.setBirthday(parentsDTO.getBirthday());
+        existingParent.setPhoneNumber(parentsDTO.getPhoneNumber());
+
+        if (parentsDTO.getAddressDTO() != null) {
+            Address existingAddress = existingParent.getAddress();
+
+            if(existingAddress == null) {
+                existingAddress = new Address();
+                existingParent.setAddress(existingAddress);
+            }
+
+            existingAddress.setCity(parentsDTO.getAddressDTO().getCity());
+            existingAddress.setPlz(parentsDTO.getAddressDTO().getPlz());
+            existingAddress.setStreet(parentsDTO.getAddressDTO().getStreet());
+            existingAddress.setHouseNumber(parentsDTO.getAddressDTO().getHouseNumber());
+        }
 
         return parentsMapper.toDto(parentsRepository.save(existingParent));
     }
