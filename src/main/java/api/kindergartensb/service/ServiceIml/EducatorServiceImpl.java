@@ -4,8 +4,8 @@ import api.kindergartensb.dto.AddressDTO;
 import api.kindergartensb.dto.EducatorDTO;
 import api.kindergartensb.dto.EducatorMiniDTO;
 import api.kindergartensb.dto.GroupDTO;
+import api.kindergartensb.entity.Address;
 import api.kindergartensb.entity.Educator;
-import api.kindergartensb.entity.Group;
 import api.kindergartensb.mapper.AddressMapper;
 import api.kindergartensb.mapper.EducatorMapper;
 import api.kindergartensb.mapper.GroupMapper;
@@ -146,6 +146,21 @@ public class EducatorServiceImpl implements EducatorWriteService, EducatorReadSe
         existing.setFirstName(educatorDTO.getFirstName());
         existing.setLastName(educatorDTO.getLastName());
         existing.setBirthday(educatorDTO.getBirthday());
+        existing.setPhoneNumber(educatorDTO.getPhoneNumber());
+
+        if (educatorDTO.getAddressDTO() != null) {
+            Address existingAddress = existing.getAddress();
+
+            if (existingAddress == null) {
+                existingAddress = new Address();
+                existing.setAddress(existingAddress);
+            }
+
+            existingAddress.setCity(educatorDTO.getAddressDTO().getCity());
+            existingAddress.setPlz(educatorDTO.getAddressDTO().getPlz());
+            existingAddress.setStreet(educatorDTO.getAddressDTO().getStreet());
+            existingAddress.setHouseNumber(educatorDTO.getAddressDTO().getHouseNumber());
+        }
 
         return educatorMapper.toDto(educatorRepository.save(existing));
     }
