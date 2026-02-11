@@ -1,4 +1,5 @@
 package api.kindergartensb.controller;
+
 import api.kindergartensb.dto.KindergartenDTO;
 
 import api.kindergartensb.dto.KindergartenMiniDto;
@@ -36,8 +37,10 @@ public class KindergartenController {
     }
 
     @PostMapping
-    public ResponseEntity<KindergartenDTO> create(@RequestBody KindergartenDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(writeService.create(dto));
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@RequestBody KindergartenDTO dto) {
+        writeService.create(dto);
+        ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{uuid}")

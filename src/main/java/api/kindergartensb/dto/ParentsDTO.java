@@ -21,7 +21,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 public class ParentsDTO extends Person {
 
- //
     private UUID uuid;
 
     @NotNull(message = "Can not be null please add address")

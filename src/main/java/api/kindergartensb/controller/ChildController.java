@@ -66,9 +66,11 @@ public class ChildController {
         return ResponseEntity.ok(parents);
     }
 
+    // 201
     @PostMapping
-    public ResponseEntity<ChildDTO> createChild(@RequestBody ChildDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(childWriteService.create(dto));
+    public void createChild(@RequestBody ChildDTO dto) {
+        childWriteService.create(dto);
+         ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
 
@@ -87,6 +89,7 @@ public class ChildController {
         return ResponseEntity.noContent().build(); // 204
     }
 
+    // NO CONTENT 204
     @PutMapping("/{uuid}")
     public ResponseEntity<ChildDTO> updateChild(
             @PathVariable UUID uuid,
